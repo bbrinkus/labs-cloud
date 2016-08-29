@@ -43,9 +43,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/bbrinkus/labs-cloud-parent</url>
-        <connection>scm:git:git://github.com/labs-cloud-parent.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/labs-cloud-parent.git</developerConnection>
+        <url>https://github.com/bbrinkus/labs-cloud</url>
+        <connection>scm:git:git://github.com/labs-cloud.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/labs-cloud.git</developerConnection>
     </scm>
 
     <developers>
@@ -92,7 +92,6 @@
                     <version>${docker-maven-plugin.version}</version>
                 </plugin>
 
-
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -102,7 +101,6 @@
             </plugins>
         </pluginManagement>
     </build>
-
 
     <dependencyManagement>
         <dependencies>
