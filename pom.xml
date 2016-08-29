@@ -4,19 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.brinkus.labs</groupId>
-        <artifactId>labs-parent</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
     <groupId>com.brinkus.labs</groupId>
-    <artifactId>labs-cloud-parent</artifactId>
+    <artifactId>labs-cloud</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>labs-cloud-parent</name>
-    <description>Build dependencies for Spring Cloud projects</description>
+    <name>labs-cloud</name>
+    <description>Labs Cloud projects</description>
 
     <licenses>
         <license>
@@ -43,9 +37,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/bbrinkus/labs-cloud-parent</url>
-        <connection>scm:git:git://github.com/labs-cloud-parent.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/labs-cloud-parent.git</developerConnection>
+        <url>https://github.com/bbrinkus/labs-cloud</url>
+        <connection>scm:git:git://github.com/labs-cloud.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/labs-cloud.git</developerConnection>
     </scm>
 
     <developers>
@@ -56,127 +50,8 @@
         </developer>
     </developers>
 
-    <properties>
-        <!-- Build plugins versions -->
-        <replacer-maven-plugin.version>1.5.3</replacer-maven-plugin.version>
-        <docker-maven-plugin.version>0.4.10</docker-maven-plugin.version>
-
-        <!-- Dependencies versions -->
-        <commons-io.version>2.5</commons-io.version>
-        <commons-lang.version>2.6</commons-lang.version>
-        <commons-validator.version>1.4.1</commons-validator.version>
-        <springfox.version>2.5.0</springfox.version>
-        <spring-boot.version>1.3.7.RELEASE</spring-boot.version>
-        <spring-cloud.version>Brixton.SR5</spring-cloud.version>
-
-        <!-- Test dependencies versions -->
-        <json-path.version>2.2.0</json-path.version>
-        <rest-assured.version>2.9.0</rest-assured.version>
-        <mockito.version>1.10.19</mockito.version>
-    </properties>
-
-
-    <build>
-        <pluginManagement>
-            <plugins>
-
-                <plugin>
-                    <groupId>com.google.code.maven-replacer-plugin</groupId>
-                    <artifactId>replacer</artifactId>
-                    <version>${replacer-maven-plugin.version}</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>${docker-maven-plugin.version}</version>
-                </plugin>
-
-
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot.version}</version>
-                </plugin>
-
-            </plugins>
-        </pluginManagement>
-    </build>
-
-
-    <dependencyManagement>
-        <dependencies>
-
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons-lang.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>${commons-validator.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${springfox.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${springfox.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- Test dependencies -->
-
-            <dependency>
-                <groupId>com.jayway.jsonpath</groupId>
-                <artifactId>json-path</artifactId>
-                <version>${json-path.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.jayway.restassured</groupId>
-                <artifactId>rest-assured</artifactId>
-                <version>${rest-assured.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
+    <modules>
+        <module>labs-cloud-parent</module>
+    </modules>
 
 </project>
