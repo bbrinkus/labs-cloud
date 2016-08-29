@@ -1,0 +1,11 @@
+labs:
+  swagger:
+    title: Labs Cloud Config
+    description: API Documentation
+    version: 1.0.0
+    termsOfServiceUrl: ToS;DR
+    contactName: Balazs Brinkus
+    contactUrl: http://www.brinkus.com
+    contactEmail: balazs@brinkus.com
+    license: GPLv3
+    licenseUrl: http://www.gnu.org/licenses/
