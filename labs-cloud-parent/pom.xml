@@ -18,6 +18,7 @@
 
     <name>labs-cloud-parent</name>
     <description>Build dependencies for Spring Cloud projects</description>
+    <url>https://github.com/bbrinkus/labs-cloud</url>
 
     <licenses>
         <license>
