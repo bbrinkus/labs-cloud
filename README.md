@@ -1,5 +1,9 @@
 # Labs Cloud
 
-Labs cloud projects. More details about the projects in the linked readme files.
+Labs cloud projects. More details about the projects in the linked documentation files.
 
-* [Labs Cloud Parent](labs-cloud-parent/README.md)
+Project                    | Documentation
+-------------------------- | ----------------------------------------
+Labs Cloud Parent          | [README.md](labs-cloud-parent/README.md)
+Labs Cloud Starter Test    |
+Labs Cloud Starter Service | 
