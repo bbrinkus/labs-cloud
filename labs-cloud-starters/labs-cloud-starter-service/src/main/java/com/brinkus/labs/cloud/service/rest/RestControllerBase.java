@@ -1,11 +1,12 @@
 package com.brinkus.labs.cloud.service.rest;
 
-import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.function.Supplier;
 
 /**
  * Rest controller's base class to handle the responses easier.
@@ -16,30 +17,36 @@ import java.util.Collection;
  */
 public abstract class RestControllerBase {
 
-    @FunctionalInterface
-    protected interface Request<T extends Object> {
+    /**
+     * Create an HTTP response entity from the given supplier's response.
+     * <p>
+     * The application will return No Content (204) the supplier's response is null or empty array/list.
+     * Otherwise if there is no exception it will return with Ok (200)
+     *
+     * @param supplier
+     *         the functional interface that executes the expression and returns with a value
+     *
+     * @return the response entity with status code 200 or 204
+     *
+     * @throws IllegalArgumentException
+     *         if the supplier is null
+     * @throws Exception
+     *         rethrow the supplier expression's error
+     */
+    protected ResponseEntity createResponse(Supplier supplier) {
+        Assert.notNull(supplier);
 
-        T execute();
-
-    }
-
-    protected final Logger logger;
-
-    protected RestControllerBase(final Logger logger) {
-        this.logger = logger;
-    }
-
-    protected ResponseEntity createResponse(Request request) {
+        Object result;
         try {
-            Object result = request.execute();
-            if (result == null || isEmptyArray(result) || isEmptyList(result)) {
-                return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            result = supplier.get();
         } catch (Exception e) {
-            logger.error("An error occurred during the query!", e);
             throw e;
         }
+
+        if (result == null || isEmptyArray(result) || isEmptyList(result)) {
+            return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     private boolean isEmptyArray(final Object result) {

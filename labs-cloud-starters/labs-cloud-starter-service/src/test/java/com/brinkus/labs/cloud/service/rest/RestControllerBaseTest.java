@@ -3,7 +3,6 @@ package com.brinkus.labs.cloud.service.rest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -23,15 +22,21 @@ public class RestControllerBaseTest {
 
         private boolean executed;
 
-        private RestController() {
-            super(LoggerFactory.getLogger(RestController.class));
-        }
-
         public ResponseEntity getResponseFromRequest(Object o) {
             return createResponse(() -> {
                 executed = true;
                 return o;
             });
+        }
+
+        public ResponseEntity getResponseFromException() {
+            return createResponse(() -> {
+                throw new IllegalStateException("Response exception");
+            });
+        }
+
+        public ResponseEntity getResponseFromNullSupplier() {
+            return createResponse(null);
         }
 
         public boolean isExecuted() {
@@ -48,6 +53,16 @@ public class RestControllerBaseTest {
     @After
     public void after() throws Exception {
         restController = null;
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getResponseFromNullSupplier() {
+        restController.getResponseFromNullSupplier();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void getResponseFromException() {
+        restController.getResponseFromException();
     }
 
     @Test
