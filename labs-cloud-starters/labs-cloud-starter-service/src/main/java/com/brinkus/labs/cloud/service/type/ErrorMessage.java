@@ -19,18 +19,14 @@ public class ErrorMessage {
      */
     @ApiModelProperty(value = "The exception's type")
     @JsonProperty(value = "type")
-    private String errorType;
+    private final String errorType;
 
     /**
      * The exception's message.
      */
     @ApiModelProperty(value = "The exception's message")
     @JsonProperty(value = "message")
-    private String message;
-
-    public ErrorMessage() {
-        // default
-    }
+    private final String message;
 
     /**
      * Create a new instance of {@link ErrorMessage}
@@ -43,19 +39,22 @@ public class ErrorMessage {
         this.message = message;
     }
 
+    /**
+     * Get the type of the exception.
+     *
+     * @return the type
+     */
     public String getType() {
         return errorType;
     }
 
-    public void setErrorType(final String errorType) {
-        this.errorType = errorType;
-    }
-
+    /**
+     * Get the message of the exception
+     *
+     * @return the message
+     */
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(final String message) {
-        this.message = message;
-    }
 }
