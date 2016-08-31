@@ -13,10 +13,13 @@ labs:
     title: Labs Cloud Config
     description: API Documentation
     version: 1.0.0
-    termsOfServiceUrl: ToS;DR
-    contactName: Balazs Brinkus
-    contactUrl: http://www.brinkus.com
-    contactEmail: balazs@brinkus.com
-    license: GPLv3
-    licenseUrl: http://www.gnu.org/licenses/
+    termsOfService:
+      url: ToS;DR
+    contact:
+      name: Balazs Brinkus
+      url: http://www.brinkus.com
+      email: balazs@brinkus.com
+    license:
+      name: GPLv3
+      url: http://www.gnu.org/licenses/
 

@@ -20,26 +20,46 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
 
+/**
+ * Configuration for Swagger API documentation.
+ */
 @Configuration
 @EnableSwagger2
+// disable if the it (integration test) profile is active
 @Profile({ "!it" })
 public class SwaggerConfig extends WebMvcConfigurerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SwaggerConfig.class);
 
+    /**
+     * The swagger api info.
+     */
     @Autowired
     ApiInfo apiInfo;
 
+    /**
+     * Creates a new instance of {@link SwaggerConfig}
+     */
     public SwaggerConfig() {
         LOGGER.info("Initialize a new configuration instance {}", getClass().getName());
     }
 
+    /**
+     * Add the webjars to the resource hanling.
+     *
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
+    /**
+     * Configure the Swagger framework.
+     *
+     * @return the configuration
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -51,17 +71,32 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                 .apiInfo(apiInfo);
     }
 
+    /**
+     * Configure the Swagger {@link ApiInfo} with the external configuration information.
+     *
+     * @param config
+     *         the swagger config bean
+     *
+     * @return the {@link ApiInfo} instance
+     */
     @Bean
-    public ApiInfo getApiInfo(SwaggerConfigBean configBean) {
-        return new ApiInfo(configBean.getTitle(),
-                           configBean.getDescription(),
-                           configBean.getVersion(),
-                           configBean.getTermsOfServiceUrl(),
-                           new Contact(configBean.getContactName(),
-                                       configBean.getContactUrl(),
-                                       configBean.getContactEmail()),
-                           configBean.getLicense(),
-                           configBean.getLicenseUrl());
+    public ApiInfo getApiInfo(SwaggerConfigBean config) {
+        Contact contact = config.hasContact()
+                ? new Contact(config.getContact().getName(),
+                              config.getContact().getUrl(),
+                              config.getContact().getEmail())
+                : null;
+        String termsOfServiceUrl = config.hasTermsOfService() ? config.getTermsOfService().getUrl() : null;
+        String licenseName = config.hasLicense() ? config.getLicense().getName() : null;
+        String licenseUrl = config.hasLicense() ? config.getLicense().getUrl() : null;
+
+        return new ApiInfo(config.getTitle(),
+                           config.getDescription(),
+                           config.getVersion(),
+                           termsOfServiceUrl,
+                           contact,
+                           licenseName,
+                           licenseUrl);
     }
 
     private Predicate<RequestHandler> excludeErrorController() {

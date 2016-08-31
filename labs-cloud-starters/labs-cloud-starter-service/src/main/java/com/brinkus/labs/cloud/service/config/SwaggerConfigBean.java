@@ -3,9 +3,155 @@ package com.brinkus.labs.cloud.service.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+/**
+ * Swagger configuration bean to load external configuration.
+ */
 @Component
 @ConfigurationProperties(prefix = "labs.swagger")
 public class SwaggerConfigBean {
+
+    /**
+     * Swagger contact information.
+     */
+    public static class Contact {
+
+        private String name;
+
+        private String url;
+
+        private String email;
+
+        /**
+         * Get the name of the contact person/organization.
+         *
+         * @return the contact name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * Set the name of the contact person/organization.
+         *
+         * @param name
+         *         the contact name
+         */
+        public void setName(final String name) {
+            this.name = name;
+        }
+
+        /**
+         * Get the url of the contact person/organization.
+         *
+         * @return the contact url
+         */
+        public String getUrl() {
+            return url;
+        }
+
+        /**
+         * Set the url of the contact person/organization.
+         *
+         * @param url
+         *         the contact url
+         */
+        public void setUrl(final String url) {
+            this.url = url;
+        }
+
+        /**
+         * Get the email address of the contact person/organization.
+         *
+         * @return the contact email address
+         */
+        public String getEmail() {
+            return email;
+        }
+
+        /**
+         * Set the email address of the contact person/organization.
+         *
+         * @param email
+         *         the contact email address
+         */
+        public void setEmail(final String email) {
+            this.email = email;
+        }
+    }
+
+    /**
+     * Swagger license information.
+     */
+    public static class License {
+
+        private String name;
+
+        private String url;
+
+        /**
+         * Get the name of the API license.
+         *
+         * @return the API license name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * Set the name of the API license.
+         *
+         * @param name
+         *         the API license name
+         */
+        public void setName(final String name) {
+            this.name = name;
+        }
+
+        /**
+         * Get the url of the API license.
+         *
+         * @return the API license url
+         */
+        public String getUrl() {
+            return url;
+        }
+
+        /**
+         * Set the url of the API license.
+         *
+         * @param url
+         *         the API license url
+         */
+        public void setUrl(final String url) {
+            this.url = url;
+        }
+    }
+
+    /**
+     * Swagger terms of service information.
+     */
+    public static class TermsOfService {
+
+        private String url;
+
+        /**
+         * Get the url of the terms of service.
+         *
+         * @return the terms of service license url
+         */
+        public String getUrl() {
+            return url;
+        }
+
+        /**
+         * Set the url of the terms of service.
+         *
+         * @return the terms of service license url
+         */
+        public void setUrl(final String url) {
+            this.url = url;
+        }
+    }
 
     private String title;
 
@@ -13,87 +159,150 @@ public class SwaggerConfigBean {
 
     private String version;
 
-    private String termsOfServiceUrl;
+    private TermsOfService termsOfService;
 
-    private String contactName;
+    private Contact contact;
 
-    private String contactUrl;
+    private License license;
 
-    private String contactEmail;
-
-    private String license;
-
-    private String licenseUrl;
-
+    /**
+     * Get the title of API.
+     *
+     * @return the API title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Set the title of API.
+     *
+     * @param title
+     *         the API title
+     */
     public void setTitle(final String title) {
         this.title = title;
     }
 
+    /**
+     * Get a detailed description of the API.
+     *
+     * @return the API description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Set a detailed description of the API.
+     *
+     * @param description
+     *         the API description
+     */
     public void setDescription(final String description) {
         this.description = description;
     }
 
+    /**
+     * Get the version of the API.
+     *
+     * @return the API version
+     */
     public String getVersion() {
         return version;
     }
 
+    /**
+     * Set the version of the API.
+     *
+     * @param version
+     *         the API version
+     */
     public void setVersion(final String version) {
         this.version = version;
     }
 
-    public String getTermsOfServiceUrl() {
-        return termsOfServiceUrl;
+    /**
+     * Get the terms of service of the API.
+     *
+     * @return the term of service
+     */
+    public TermsOfService getTermsOfService() {
+        return termsOfService;
     }
 
-    public void setTermsOfServiceUrl(final String termsOfServiceUrl) {
-        this.termsOfServiceUrl = termsOfServiceUrl;
+    /**
+     * Flag to indicate that the terms of service information is available.
+     *
+     * @return the flag value (default false)
+     */
+    public boolean hasTermsOfService() {
+        return termsOfService != null;
     }
 
-    public String getContactName() {
-        return contactName;
+    /**
+     * Set the terms of service of the API.
+     *
+     * @param termsOfService
+     *         the term of service
+     */
+    public void setTermsOfService(final TermsOfService termsOfService) {
+        this.termsOfService = termsOfService;
     }
 
-    public void setContactName(final String contactName) {
-        this.contactName = contactName;
+    /**
+     * Get the contact information of the API.
+     *
+     * @return the contact information
+     */
+    public Contact getContact() {
+        return contact;
     }
 
-    public String getContactUrl() {
-        return contactUrl;
+    /**
+     * Flag to indicate that the contact information is available.
+     *
+     * @return the flag value (default false)
+     */
+    public boolean hasContact() {
+        return contact != null;
     }
 
-    public void setContactUrl(final String contactUrl) {
-        this.contactUrl = contactUrl;
+    /**
+     * Set the contact information of the API.
+     *
+     * @param contact
+     *         the contact information
+     */
+    public void setContact(final Contact contact) {
+        this.contact = contact;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(final String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
-
-    public String getLicense() {
+    /**
+     * Get the license information of the API.
+     *
+     * @return the license information
+     */
+    public License getLicense() {
         return license;
     }
 
-    public void setLicense(final String license) {
+    /**
+     * Flag to indicate that the license information is available.
+     *
+     * @return the flag value (default false)
+     */
+    public boolean hasLicense() {
+        return license != null;
+    }
+
+    /**
+     * Set the license information of the API.
+     *
+     * @param license
+     *         the license information
+     */
+    public void setLicense(final License license) {
         this.license = license;
-    }
-
-    public String getLicenseUrl() {
-        return licenseUrl;
-    }
-
-    public void setLicenseUrl(final String licenseUrl) {
-        this.licenseUrl = licenseUrl;
     }
 }

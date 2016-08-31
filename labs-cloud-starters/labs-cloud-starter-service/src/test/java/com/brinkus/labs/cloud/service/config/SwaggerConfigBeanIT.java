@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,12 +25,15 @@ public class SwaggerConfigBeanIT {
         assertThat(configBean.getTitle(), is("Labs Cloud Config"));
         assertThat(configBean.getDescription(), is("API Documentation"));
         assertThat(configBean.getVersion(), is("1.0.0"));
-        assertThat(configBean.getTermsOfServiceUrl(), is("ToS;DR"));
-        assertThat(configBean.getContactName(), is("Balazs Brinkus"));
-        assertThat(configBean.getContactUrl(), is("http://www.brinkus.com"));
-        assertThat(configBean.getContactEmail(), is("balazs@brinkus.com"));
-        assertThat(configBean.getLicense(), is("GPLv3"));
-        assertThat(configBean.getLicenseUrl(), is("http://www.gnu.org/licenses/"));
+        assertThat(configBean.getTermsOfService(), notNullValue());
+        assertThat(configBean.getTermsOfService().getUrl(), is("ToS;DR"));
+        assertThat(configBean.getContact(), notNullValue());
+        assertThat(configBean.getContact().getName(), is("Balazs Brinkus"));
+        assertThat(configBean.getContact().getUrl(), is("http://www.brinkus.com"));
+        assertThat(configBean.getContact().getEmail(), is("balazs@brinkus.com"));
+        assertThat(configBean.getLicense(), notNullValue());
+        assertThat(configBean.getLicense().getName(), is("GPLv3"));
+        assertThat(configBean.getLicense().getUrl(), is("http://www.gnu.org/licenses/"));
     }
 
 }
