@@ -9,6 +9,23 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Configuration for caching.
+ * <p>
+ * Example configuration file:
+ * <pre><code>
+ *  labs:
+ *    cache:
+ *      caches:
+ *        -
+ *          name: CacheMaximumSize
+ *          maximum:
+ *            size: 1
+ *        -
+ *          name: CacheAccessExpiration
+ *          expirations:
+ *            afterAccess:
+ *              duration: 1
+ *              unit: hours
+ * </code></pre>
  */
 @Component
 @ConfigurationProperties(prefix = "labs.cache")

@@ -14,18 +14,33 @@ import org.springframework.context.annotation.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Configuration for central cache management.
+ */
 @Configuration
 @EnableCaching
 public class CacheConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CacheConfig.class);
 
+    /**
+     * Create a new instance of {@link CacheConfig}.
+     */
     public CacheConfig() {
         LOGGER.info("Initialize a new configuration instance {}", getClass().getSimpleName());
     }
 
+    /**
+     * Get the central cache manager from the external configuration information.
+     *
+     * @param config
+     *         the cache config bean
+     *
+     * @return the {@link CacheManager} instance
+     */
     @Bean
     public CacheManager cacheManager(final CacheConfigBean config) {
+        validate(config);
         List<GuavaCache> guavaCaches = new ArrayList<>();
 
         for (CacheConfigBean.Cache cache : config.getCaches()) {
@@ -60,6 +75,20 @@ public class CacheConfig {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         cacheManager.setCaches(guavaCaches);
         return cacheManager;
+    }
+
+    private void validate(final CacheConfigBean config) {
+        if (config.getCaches().isEmpty()) {
+            throw new InvalidCacheConfigurationException("The cache configuration must contain minimum one element!");
+        }
+        for (CacheConfigBean.Cache cache : config.getCaches()) {
+            if (cache.getName() == null || cache.getName().isEmpty()) {
+                throw new InvalidCacheConfigurationException("The cache must have a valid name!");
+            }
+            if (!cache.hasMaximum() && !cache.hasExpiration()) {
+                throw new InvalidCacheConfigurationException("The cache must contain a maximum or an expiration value!");
+            }
+        }
     }
 
 }
