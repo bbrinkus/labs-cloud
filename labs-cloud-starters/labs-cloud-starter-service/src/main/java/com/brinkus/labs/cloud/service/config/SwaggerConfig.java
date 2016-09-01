@@ -45,12 +45,13 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * Add the webjars to the resource hanling.
+     * Add the webjars to the resource handling.
      *
      * @param registry
+     *         the resource handler registry
      */
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
@@ -72,7 +73,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * Configure the Swagger {@link ApiInfo} with the external configuration information.
+     * Get the Swagger {@link ApiInfo} from the external configuration information.
      *
      * @param config
      *         the swagger config bean
@@ -80,7 +81,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
      * @return the {@link ApiInfo} instance
      */
     @Bean
-    public ApiInfo getApiInfo(SwaggerConfigBean config) {
+    public ApiInfo getApiInfo(final SwaggerConfigBean config) {
         Contact contact = config.hasContact()
                 ? new Contact(config.getContact().getName(),
                               config.getContact().getUrl(),

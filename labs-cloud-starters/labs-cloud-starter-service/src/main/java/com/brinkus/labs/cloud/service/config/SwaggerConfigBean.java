@@ -5,6 +5,24 @@ import org.springframework.stereotype.Component;
 
 /**
  * Swagger configuration bean to load external configuration.
+ * <p>
+ * External configuration file:
+ * <pre><code>
+ *  labs:
+ *    swagger:
+ *      title: Labs Cloud Config
+ *      description: API Documentation
+ *      version: 1.0.0
+ *      termsOfService:
+ *        url: ToS;DR
+ *      contact:
+ *        name: Balazs Brinkus
+ *        url: http://www.brinkus.com
+ *        email: balazs@brinkus.com
+ *      license:
+ *        name: GPLv3
+ *        url: http://www.gnu.org/licenses/
+ * </code></pre>
  */
 @Component
 @ConfigurationProperties(prefix = "labs.swagger")
