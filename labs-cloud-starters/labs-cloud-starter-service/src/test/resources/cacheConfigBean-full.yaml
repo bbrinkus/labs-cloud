@@ -1,0 +1,52 @@
+labs:
+  cache:
+    enabled: true
+    caches:
+      -
+        name: CacheSizeMaximum
+        maximum:
+          size: 1
+      -
+        name: CacheWeightMaximum
+        maximum:
+          weight: 10
+      -
+        name: CacheAccessExpirationHour
+        expirations:
+          afterAccess:
+            duration: 1
+            unit: hours
+      -
+        name: CacheAccessExpiration
+        expirations:
+          afterAccess:
+            duration: 1
+      -
+        name: CacheWriteExpirationMinutes
+        expirations:
+          afterWrite:
+            duration: 5
+            unit: minutes
+      -
+        name: CacheWriteExpirationSeconds
+        expirations:
+          afterWrite:
+            duration: 5
+            unit: seconds
+      -
+        name: CacheWriteExpirationTypo
+        expirations:
+          afterWrite:
+            duration: 5
+            unit: second
+      -
+        name: CacheFull
+        maximum:
+          size: 1
+          weight: 10
+        expirations:
+          afterAccess:
+            duration: 1
+          afterWrite:
+            duration: 5
+            unit: hours
