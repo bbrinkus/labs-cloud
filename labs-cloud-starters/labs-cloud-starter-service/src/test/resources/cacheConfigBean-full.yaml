@@ -7,10 +7,6 @@ labs:
         maximum:
           size: 1
       -
-        name: CacheWeightMaximum
-        maximum:
-          weight: 10
-      -
         name: CacheAccessExpirationHour
         expirations:
           afterAccess:

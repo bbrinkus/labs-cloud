@@ -51,9 +51,6 @@ public class CacheConfig {
                 if (maximum.hasSize()) {
                     cacheBuilder.maximumSize(maximum.getSize());
                 }
-                if (maximum.hasWeight()) {
-                    cacheBuilder.maximumWeight(maximum.getWeight());
-                }
             }
 
             if (cache.hasExpiration()) {

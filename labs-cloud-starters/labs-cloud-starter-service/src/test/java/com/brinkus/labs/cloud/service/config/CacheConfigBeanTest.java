@@ -22,29 +22,20 @@ public class CacheConfigBeanTest {
         CacheConfigBean configBean = getConfigBean(properties);
 
         assertThat(configBean.getCaches(), notNullValue());
-        assertThat(configBean.getCaches().size(), is(8));
+        assertThat(configBean.getCaches().size(), is(7));
 
         verifyCacheSizeMaximum(configBean.getCaches().get(0));
-        verifyCacheWeightMaximum(configBean.getCaches().get(1));
-        verifyCacheAccessExpirationHour(configBean.getCaches().get(2));
-        verifyCacheAccessExpiration(configBean.getCaches().get(3));
-        verifyCacheWriteExpirationMinutes(configBean.getCaches().get(4));
-        verifyCacheWriteExpirationSeconds(configBean.getCaches().get(5));
-        verifyCacheWriteExpirationTypo(configBean.getCaches().get(6));
-        verifyCacheFull(configBean.getCaches().get(7));
+        verifyCacheAccessExpirationHour(configBean.getCaches().get(1));
+        verifyCacheAccessExpiration(configBean.getCaches().get(2));
+        verifyCacheWriteExpirationMinutes(configBean.getCaches().get(3));
+        verifyCacheWriteExpirationSeconds(configBean.getCaches().get(4));
+        verifyCacheWriteExpirationTypo(configBean.getCaches().get(5));
+        verifyCacheFull(configBean.getCaches().get(6));
     }
 
     private void verifyCacheSizeMaximum(final CacheConfigBean.Cache cache) {
         assertThat(cache.getName(), is("CacheSizeMaximum"));
         assertThat(cache.getMaximum().getSize(), is(1L));
-        assertThat(cache.getMaximum().getWeight(), nullValue());
-        assertThat(cache.getExpirations(), nullValue());
-    }
-
-    private void verifyCacheWeightMaximum(final CacheConfigBean.Cache cache) {
-        assertThat(cache.getName(), is("CacheWeightMaximum"));
-        assertThat(cache.getMaximum().getSize(), nullValue());
-        assertThat(cache.getMaximum().getWeight(), is(10L));
         assertThat(cache.getExpirations(), nullValue());
     }
 
@@ -111,7 +102,6 @@ public class CacheConfigBeanTest {
     private void verifyCacheFull(final CacheConfigBean.Cache cache) {
         assertThat(cache.getName(), is("CacheFull"));
         assertThat(cache.getMaximum(), notNullValue());
-        assertThat(cache.getMaximum().getWeight(), is(10L));
         assertThat(cache.getMaximum().getSize(), is(1L));
         assertThat(cache.getExpirations(), notNullValue());
         assertThat(cache.getExpirations().hasAfterAccess(), is(true));

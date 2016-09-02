@@ -184,8 +184,6 @@ public class CacheConfigBean {
 
         private Long size;
 
-        private Long weight;
-
         /**
          * Get the maximum size of the cache.
          *
@@ -212,34 +210,6 @@ public class CacheConfigBean {
          */
         public void setSize(final Long size) {
             this.size = size;
-        }
-
-        /**
-         * Get the maximum weight of the cache.
-         *
-         * @return the maximum weight
-         */
-        public Long getWeight() {
-            return weight;
-        }
-
-        /**
-         * Flag to indicate that the cache has maximum weight.
-         *
-         * @return the flag value (default false)
-         */
-        public boolean hasWeight() {
-            return weight != null;
-        }
-
-        /**
-         * Set the maximum weight of the cache.
-         *
-         * @param weight
-         *         the maximum weight
-         */
-        public void setWeight(final Long weight) {
-            this.weight = weight;
         }
     }
 
@@ -286,7 +256,7 @@ public class CacheConfigBean {
          * @return the flag value (default false)
          */
         public boolean hasMaximum() {
-            return maximum != null && (maximum.hasSize() || maximum.hasWeight());
+            return maximum != null && maximum.hasSize();
         }
 
         /**
@@ -328,7 +298,28 @@ public class CacheConfigBean {
         }
     }
 
+    private boolean enabled;
+
     private List<Cache> caches;
+
+    /**
+     * Flag to indicate that the cache is enabled or disabled state.
+     *
+     * @return the flag value (default false)
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Set the cache enabled or disabled state.
+     *
+     * @param enabled
+     *         the cache state
+     */
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
+    }
 
     /**
      * Get the cache configurations.
