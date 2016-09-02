@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  * <pre><code>
  *  labs:
  *    cache:
+ *      enabled: true
  *      caches:
  *        -
  *          name: CacheMaximumSize

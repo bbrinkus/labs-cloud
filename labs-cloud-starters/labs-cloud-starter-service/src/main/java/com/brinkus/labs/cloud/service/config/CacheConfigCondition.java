@@ -8,7 +8,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.stereotype.Component;
 
 /**
- * Condition to control for the cache configuration loading.
+ * Condition to control the cache configuration loading.
  */
 @Component
 public class CacheConfigCondition implements Condition {

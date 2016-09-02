@@ -28,7 +28,7 @@ public class CacheConfigEnabledIT {
     }
 
     @Test
-    public void cacheManagerNotAvailable() {
+    public void cacheManagerEnabled() {
         CacheManager cacheManager = context.getBean(CacheManager.class);
         assertThat(cacheManager, notNullValue());
         assertThat(cacheManager.getCacheNames().size(), is(2));
