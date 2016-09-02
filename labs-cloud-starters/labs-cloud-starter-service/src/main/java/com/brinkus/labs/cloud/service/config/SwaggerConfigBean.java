@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  * <pre><code>
  *  labs:
  *    swagger:
+ *      enabled: true
  *      title: Labs Cloud Config
  *      description: API Documentation
  *      version: 1.0.0
@@ -171,6 +172,8 @@ public class SwaggerConfigBean {
         }
     }
 
+    private boolean enabled;
+
     private String title;
 
     private String description;
@@ -182,6 +185,25 @@ public class SwaggerConfigBean {
     private Contact contact;
 
     private License license;
+
+    /**
+     * Flag to indicate that the swagger is enabled or disabled state.
+     *
+     * @return the flag value (default false)
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    /**
+     * Set the swagger enabled or disabled state.
+     *
+     * @param enabled
+     *         the cache state
+     */
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
+    }
 
     /**
      * Get the title of API.

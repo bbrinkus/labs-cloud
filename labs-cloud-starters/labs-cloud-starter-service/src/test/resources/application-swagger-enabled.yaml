@@ -1,0 +1,5 @@
+labs:
+  swagger:
+    enabled: true
+    title: Labs Cloud Config
+    description: API Documentation
