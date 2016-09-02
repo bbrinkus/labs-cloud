@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Configuration
 @EnableCaching
-@Conditional(CacheConfigCondidition.class)
+@Conditional(CacheConfigCondition.class)
 public class CacheConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CacheConfig.class);

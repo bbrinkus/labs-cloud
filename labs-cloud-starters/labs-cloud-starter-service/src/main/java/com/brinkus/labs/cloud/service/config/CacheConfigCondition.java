@@ -8,18 +8,18 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.stereotype.Component;
 
 /**
- * Condition to control for the configuration loading.
+ * Condition to control for the cache configuration loading.
  */
 @Component
-public class CacheConfigCondidition implements Condition {
+public class CacheConfigCondition implements Condition {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CacheConfigCondidition.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CacheConfigCondition.class);
 
     @Override
     public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
         String property = context.getEnvironment().getProperty("labs.cache.enabled");
         boolean isEnabled = Boolean.parseBoolean(property);
-        LOGGER.info("Cache configuration loading is enabled: " + isEnabled);
+        LOGGER.info("Cache configuration loading is enabled: {}", isEnabled);
         return isEnabled;
     }
 }
