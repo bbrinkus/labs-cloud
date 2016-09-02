@@ -339,5 +339,4 @@ public class CacheConfigBean {
     public void setCaches(final List<Cache> caches) {
         this.caches = caches;
     }
-
 }

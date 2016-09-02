@@ -1,0 +1,13 @@
+labs:
+  cache:
+    enabled: true
+    caches:
+      -
+        name: CacheMaximum
+        maximum:
+          size: 1
+      -
+        name: CacheExpiration
+        expirations:
+          afterAccess:
+            duration: 1

@@ -1,0 +1,11 @@
+# if the condition is not working as intended it will throw an exception during the loading phase
+labs:
+  cache:
+    enabled: false
+    caches:
+      -
+        name: CacheSizeMaximum
+        maximum:
+          size: 1
+      -
+        name: CacheWeightMaximum
