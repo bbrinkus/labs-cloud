@@ -14,6 +14,9 @@ import org.springframework.util.Assert;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Health check handler that can inform the Eureka if the service has health problem.
+ */
 public class EurekaHealthCheckHandler implements HealthCheckHandler, ApplicationContextAware, InitializingBean {
 
     private static final Map<Status, InstanceStatus> healthStatuses = new HashMap<>();
@@ -29,6 +32,12 @@ public class EurekaHealthCheckHandler implements HealthCheckHandler, Application
 
     private ApplicationContext applicationContext;
 
+    /**
+     * Create a new instance of {@link EurekaHealthCheckHandler}.
+     *
+     * @param healthAggregator
+     *         the components health aggregator
+     */
     public EurekaHealthCheckHandler(HealthAggregator healthAggregator) {
         Assert.notNull(healthAggregator, "HealthAggregator must not be null");
         this.healthIndicator = new CompositeHealthIndicator(healthAggregator);

@@ -8,11 +8,16 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Serialize {@link LocalDate} to ISO date (YYYY-MM-DD) formatted text.
+ */
 public class LocalISODateSerializer extends JsonSerializer<LocalDate> {
 
     @Override
-    public void serialize(LocalDate value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-        jgen.writeString(DateTimeFormatter.ISO_DATE.format(value));
+    public void serialize(final LocalDate value,
+                          final JsonGenerator gen,
+                          final SerializerProvider serializers) throws IOException {
+        gen.writeString(DateTimeFormatter.ISO_DATE.format(value));
     }
 
 }
