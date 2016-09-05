@@ -183,7 +183,8 @@ public class SwaggerConfigBean {
         /**
          * Set the url of the terms of service.
          *
-         * @return the terms of service license url
+         * @param url
+         *         the terms of service license url
          */
         public void setUrl(final String url) {
             this.url = url;

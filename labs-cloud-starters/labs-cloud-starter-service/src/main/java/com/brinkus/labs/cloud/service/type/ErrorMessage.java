@@ -50,7 +50,9 @@ public class ErrorMessage {
      * Create a new instance of {@link ErrorMessage}
      *
      * @param errorType
+     *         the type of the error
      * @param message
+     *         the details of the  error message
      */
     public ErrorMessage(final String errorType, final String message) {
         this.errorType = errorType;

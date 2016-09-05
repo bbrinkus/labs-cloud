@@ -28,10 +28,9 @@ import java.util.function.Supplier;
 
 /**
  * Rest controller's base class to handle the responses easier.
- * <p>
- * <code>
- * return createResponse(() -> service.getCounties(countryCodes));
- * </code>
+ * <pre>{@code
+ *  return createResponse(() -> service.getCounties(countryCodes));
+ * }</pre>
  */
 public abstract class RestControllerBase {
 
@@ -48,19 +47,11 @@ public abstract class RestControllerBase {
      *
      * @throws IllegalArgumentException
      *         if the supplier is null
-     * @throws Exception
-     *         rethrow the supplier expression's error
      */
     protected ResponseEntity createResponse(Supplier supplier) {
         Assert.notNull(supplier);
 
-        Object result;
-        try {
-            result = supplier.get();
-        } catch (Exception e) {
-            throw e;
-        }
-
+        Object result = supplier.get();
         if (result == null || isEmptyArray(result) || isEmptyList(result)) {
             return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
         }
