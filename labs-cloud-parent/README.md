@@ -1,4 +1,4 @@
-# Labs Parent Pom
+# Labs Cloud Parent Pom
 
 Parent pom for Spring Cloud projects
 
