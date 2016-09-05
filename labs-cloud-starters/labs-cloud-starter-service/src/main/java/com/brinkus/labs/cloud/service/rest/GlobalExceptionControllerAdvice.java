@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 /**
- * Controller advice to handle {@link Exception} and {@link IllegalArgumentException} exceptions.
+ * Controller advice to handle {@link Exception} and {@link RuntimeException} exceptions.
  */
 @ControllerAdvice
 public class GlobalExceptionControllerAdvice {
@@ -45,15 +45,15 @@ public class GlobalExceptionControllerAdvice {
     }
 
     /**
-     * Handle {@link IllegalArgumentException} exceptions.
+     * Handle {@link RuntimeException} exceptions.
      *
      * @param e
      *         the exception instance
      *
      * @return a response the details of the error and HTTP status code 400
      */
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity handleIllegalArgumentException(Exception e) {
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity handleRuntimeException(Exception e) {
         ErrorMessage message = new ErrorMessage(e.getClass().getSimpleName(), e.getMessage());
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
