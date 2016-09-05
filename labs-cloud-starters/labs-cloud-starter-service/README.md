@@ -7,7 +7,7 @@ Contains the configurations:
 
 ## Versions
 
-* 1.0.0 
+* 1.1.0 
     * Baseline
     
 ## Use in AWS

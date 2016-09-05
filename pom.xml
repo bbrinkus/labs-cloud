@@ -6,7 +6,7 @@
 
     <groupId>com.brinkus.labs</groupId>
     <artifactId>labs-cloud</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <packaging>pom</packaging>
 
     <name>labs-cloud</name>
@@ -50,6 +50,17 @@
             <url>http://www.brinkus.com</url>
         </developer>
     </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
 
     <modules>
         <module>labs-cloud-parent</module>
