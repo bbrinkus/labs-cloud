@@ -2,11 +2,6 @@
 
 Contains the required dependencies to make unit and integration tests.
 
-## Versions
-
-* 1.1.0 
-    * Baseline
-    
 ## Content
 
 * com.jayway.jsonpath:json-path

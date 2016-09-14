@@ -1,5 +1,12 @@
 # Labs Cloud
 
+## Versions
+
+* 1.1.0 
+    * Baseline
+    
+## Projects
+
 Labs cloud projects. More details about the projects in the linked documentation files.
 
 Project                    | Documentation

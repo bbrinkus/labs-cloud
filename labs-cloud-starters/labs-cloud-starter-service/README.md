@@ -4,11 +4,6 @@ Contains the configurations:
 * to connect to the Eureka Discovery Service
 * to use caching
 * to use Swagger Documentation API
-
-## Versions
-
-* 1.1.0 
-    * Baseline
     
 ## Use in AWS
 

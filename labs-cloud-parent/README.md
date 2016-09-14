@@ -2,11 +2,6 @@
 
 Parent pom for Spring Cloud projects
 
-## Versions
-
-* 1.1.0 
-    * Baseline
-
 ## Plugin Build Configurations
 
 ### Single Assembly
