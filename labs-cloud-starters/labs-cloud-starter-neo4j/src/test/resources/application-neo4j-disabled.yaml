@@ -1,0 +1,7 @@
+# if the condition is not working as intended it will throw an exception during the loading phase
+labs:
+  neo4j:
+    enabled: false
+    driver: invalid
+    serviceId: neo4j
+    packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2
