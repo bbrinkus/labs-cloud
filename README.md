@@ -4,6 +4,8 @@
 
 * 1.1.0 
     * Baseline
+* 1.2.0
+    * Add new starter for Neo4j with discovery service support (HTTP driver only)
     
 ## Projects
 
