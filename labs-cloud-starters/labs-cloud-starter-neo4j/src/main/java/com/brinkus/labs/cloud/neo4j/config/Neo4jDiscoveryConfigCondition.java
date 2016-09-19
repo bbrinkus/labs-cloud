@@ -26,7 +26,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.stereotype.Component;
 
 /**
- * Condition to control the cache configuration loading.
+ * Condition to control the Neo4j discovery session configuration loading.
  */
 @Component
 public class Neo4jDiscoveryConfigCondition implements Condition {

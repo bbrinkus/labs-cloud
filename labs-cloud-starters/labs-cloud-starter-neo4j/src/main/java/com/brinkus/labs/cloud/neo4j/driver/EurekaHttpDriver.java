@@ -52,7 +52,9 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import java.net.URI;
 
-public final class EurekaHttpDriver extends AbstractConfigurableDriver {
+/**
+ * Neo4j HTTP driver with discovery service support.
+ */
 public final class EurekaHttpDriver extends AbstractConfigurableDriver implements EurekaHttpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EurekaHttpDriver.class);
@@ -61,17 +63,28 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
 
     private CloseableHttpClient httpClient;
 
+    /**
+     * Create a new instance of {@link EurekaHttpDriver}.
+     *
+     * @param clientFactory
+     *         the factory class that handles the loadbalancer creation
+     */
     public EurekaHttpDriver(final SpringClientFactory clientFactory) {
-        this.clientFactory = clientFactory;
+        this(clientFactory, null);
     }
-    //
-    //    public EurekaHttpDriver() {
-    //        // nothing
-    //    }
-    //
-    //    public EurekaHttpDriver(CloseableHttpClient httpClient) {
-    //        this.httpClient = httpClient;
-    //    }
+
+    /**
+     * Create a new instance of {@link EurekaHttpDriver}.
+     *
+     * @param clientFactory
+     *         the factory class that handles the loadbalancer creation
+     * @param httpClient
+     *         the HTTP client instance
+     */
+    EurekaHttpDriver(final SpringClientFactory clientFactory, final CloseableHttpClient httpClient) {
+        this.clientFactory = clientFactory;
+        this.httpClient = httpClient;
+    }
 
     @Override
     public synchronized void close() {
@@ -97,7 +110,58 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
         return new EurekaHttpTransaction(transactionManager, this, url);
     }
 
-    public CloseableHttpResponse executeHttpRequest(HttpRequestBase request) {
+    @Override
+    public void executeHttpRequest(final HttpRequestBase request) {
+        executeHttpRequestWithResponse(request);
+    }
+
+    private String requestUrl() {
+        if (transactionManager != null) {
+            Transaction tx = transactionManager.getCurrentTransaction();
+            if (tx != null) {
+                LOGGER.debug("Thread {}: request url {}", Thread.currentThread().getId(), ((HttpTransaction) tx).url());
+                return ((HttpTransaction) tx).url();
+            } else {
+                LOGGER.debug("Thread {}: No current transaction, using auto-commit", Thread.currentThread().getId());
+            }
+        } else {
+            LOGGER.debug("Thread {}: No transaction manager available, using auto-commit", Thread.currentThread().getId());
+        }
+        String autoCommitUrl = autoCommitUrl();
+        LOGGER.debug("Thread {}: request url {}", Thread.currentThread().getId(), autoCommitUrl);
+        return autoCommitUrl;
+    }
+
+    private String autoCommitUrl() {
+        return transactionEndpoint(getDiscoveryUri()).concat("/commit");
+    }
+
+    private String newTransactionUrl() {
+        String url = transactionEndpoint(getDiscoveryUri());
+        LOGGER.debug("Thread {}: POST {}", Thread.currentThread().getId(), url);
+
+        try (CloseableHttpResponse response = executeHttpRequestWithResponse(new HttpPost(url))) {
+            Header location = response.getHeaders("Location")[0];
+            response.close();
+            return location.getValue();
+        } catch (Exception e) {
+            throw new ResultProcessingException("Could not obtain new Transaction: ", e);
+        }
+    }
+
+    private String transactionEndpoint(String server) {
+        if (server == null) {
+            return null;
+        }
+        String url = server;
+
+        if (!server.endsWith("/")) {
+            url += "/";
+        }
+        return url + "db/data/transaction";
+    }
+
+    private CloseableHttpResponse executeHttpRequestWithResponse(final HttpRequestBase request) {
         try {
             try (CloseableHttpResponse response = HttpRequest.execute(httpClient(), request, driverConfig.getCredentials())) {
                 HttpEntity responseEntity = response.getEntity();
@@ -125,52 +189,6 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
             request.releaseConnection();
             LOGGER.debug("Thread {}: Connection released", Thread.currentThread().getId());
         }
-    }
-
-    private String newTransactionUrl() {
-        String url = transactionEndpoint(getDiscoveryUri());
-        LOGGER.debug("Thread {}: POST {}", Thread.currentThread().getId(), url);
-
-        try (CloseableHttpResponse response = executeHttpRequest(new HttpPost(url))) {
-            Header location = response.getHeaders("Location")[0];
-            response.close();
-            return location.getValue();
-        } catch (Exception e) {
-            throw new ResultProcessingException("Could not obtain new Transaction: ", e);
-        }
-    }
-
-    private String autoCommitUrl() {
-        return transactionEndpoint(getDiscoveryUri()).concat("/commit");
-    }
-
-    private String transactionEndpoint(String server) {
-        if (server == null) {
-            return null;
-        }
-        String url = server;
-
-        if (!server.endsWith("/")) {
-            url += "/";
-        }
-        return url + "db/data/transaction";
-    }
-
-    private String requestUrl() {
-        if (transactionManager != null) {
-            Transaction tx = transactionManager.getCurrentTransaction();
-            if (tx != null) {
-                LOGGER.debug("Thread {}: request url {}", Thread.currentThread().getId(), ((HttpTransaction) tx).url());
-                return ((HttpTransaction) tx).url();
-            } else {
-                LOGGER.debug("Thread {}: No current transaction, using auto-commit", Thread.currentThread().getId());
-            }
-        } else {
-            LOGGER.debug("Thread {}: No transaction manager available, using auto-commit", Thread.currentThread().getId());
-        }
-        String autoCommitUrl = autoCommitUrl();
-        LOGGER.debug("Thread {}: request url {}", Thread.currentThread().getId(), autoCommitUrl);
-        return autoCommitUrl;
     }
 
     private synchronized CloseableHttpClient httpClient() {
@@ -244,5 +262,4 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
         }
         return loadBalancer.chooseServer("default");
     }
-
 }

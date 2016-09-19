@@ -24,10 +24,12 @@ import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.service.Components;
 import org.neo4j.ogm.session.Neo4jSession;
 import org.neo4j.ogm.session.Session;
-import org.neo4j.ogm.session.SessionFactoryProvider;
 import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 
-public class EurekaHttpSessionFactory implements SessionFactoryProvider {
+/**
+ * Create and handles the new Neo4j session with discovery service support.
+ */
+public class EurekaHttpSessionFactory implements EurakaSessionFactory {
 
     private final SpringClientFactory clientFactory;
 
@@ -35,6 +37,16 @@ public class EurekaHttpSessionFactory implements SessionFactoryProvider {
 
     private final MetaData metaData;
 
+    /**
+     * Create a new instance of {@link EurekaHttpSessionFactory}.
+     *
+     * @param clientFactory
+     *         the factory class that handles the loadbalancer creation
+     * @param configuration
+     *         the Neo4j configuration instance
+     * @param packages
+     *         the meta packages that are containing the Neo4j entity representations
+     */
     public EurekaHttpSessionFactory(SpringClientFactory clientFactory, Configuration configuration, String... packages) {
         this.clientFactory = clientFactory;
         this.configuration = configuration;
@@ -42,10 +54,12 @@ public class EurekaHttpSessionFactory implements SessionFactoryProvider {
         Components.configure(this.configuration);
     }
 
+    @Override
     public MetaData metaData() {
         return metaData;
     }
 
+    @Override
     public Session openSession() {
         EurekaHttpDriver driver = new EurekaHttpDriver(clientFactory);
         driver.configure(configuration.driverConfiguration());

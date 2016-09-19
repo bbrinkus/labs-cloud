@@ -25,14 +25,23 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 
 import java.util.Collections;
 
+/**
+ * Health check solution for Neo4j that ping the server periodically to get a health status.
+ */
 public class Neo4jHealthIndicator implements HealthIndicator {
 
     private static final String DESCRIPTION = "description";
 
-    private static final String PING_CYPHER = "MATCH (:Country) RETURN count(*)";
+    private static final String PING_CYPHER = "MATCH (n) RETURN count(*)";
 
     private final Neo4jDiscoverySession discoverySession;
 
+    /**
+     * Create a new instance of {@link Neo4jHealthIndicator}
+     *
+     * @param discoverySession
+     *         the Neo4j discovery session
+     */
     public Neo4jHealthIndicator(Neo4jDiscoverySession discoverySession) {
         this.discoverySession = discoverySession;
     }

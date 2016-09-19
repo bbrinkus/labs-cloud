@@ -26,13 +26,25 @@ import org.neo4j.ogm.exception.TransactionException;
 import org.neo4j.ogm.transaction.AbstractTransaction;
 import org.neo4j.ogm.transaction.TransactionManager;
 
+/**
+ * Neo4j transaction support for the {@link EurekaHttpDriver} solution.
+ */
 class EurekaHttpTransaction extends AbstractTransaction {
 
     private final EurekaHttpClient client;
 
     private final String url;
 
-    public EurekaHttpTransaction(TransactionManager transactionManager, EurekaHttpDriver driver, String url) {
+    /**
+     * Create a new instance of {@link EurekaHttpTransaction}
+     *
+     * @param transactionManager
+     *         the transaction manager instance
+     * @param client
+     *         the eureka http client
+     * @param url
+     *         the target server url
+     */
     public EurekaHttpTransaction(TransactionManager transactionManager, EurekaHttpClient client, String url) {
         super(transactionManager);
         this.client = client;

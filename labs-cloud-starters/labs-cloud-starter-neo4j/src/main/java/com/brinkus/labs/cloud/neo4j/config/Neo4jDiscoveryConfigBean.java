@@ -23,6 +23,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Configuration for Neo4j discovery session.
+ * <p>
+ * Example configuration file:
+ * <pre><code>
+ *  labs:
+ *    neo4j:
+ *      enabled: true
+ *      driver: http
+ *      serviceId: neo4j
+ *      packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2
+ * </code></pre>
+ */
 @Component
 @ConfigurationProperties(prefix = "labs.neo4j")
 public class Neo4jDiscoveryConfigBean {
@@ -54,26 +67,59 @@ public class Neo4jDiscoveryConfigBean {
         this.enabled = enabled;
     }
 
+    /**
+     * Get the name of the connection's driver (only http supported at this moment).
+     *
+     * @return the name of the driver
+     */
     public String getDriver() {
         return driver;
     }
 
+    /**
+     * Set the name of the connection's driver (only http supported at this moment).
+     *
+     * @param driver
+     *         the name of the driver
+     */
     public void setDriver(final String driver) {
         this.driver = driver;
     }
 
+    /**
+     * Get the service identifier of the Neo4j instances.
+     *
+     * @return the service identifier
+     */
     public String getServiceId() {
         return serviceId;
     }
 
+    /**
+     * Set the service identifier of the Neo4j instances.
+     *
+     * @param serviceId
+     *         the service identifier
+     */
     public void setServiceId(final String serviceId) {
         this.serviceId = serviceId;
     }
 
+    /**
+     * Get the meta packages that are containing the Neo4j entity representations.
+     *
+     * @return the list of the meta packages
+     */
     public List<String> getPackages() {
         return packages;
     }
 
+    /**
+     * Set the meta packages that are containing the Neo4j entity representations.
+     *
+     * @param packages
+     *         the list of the meta packages
+     */
     public void setPackages(final List<String> packages) {
         this.packages = packages;
     }

@@ -18,24 +18,57 @@
 
 package com.brinkus.labs.cloud.neo4j.component;
 
+import com.brinkus.labs.cloud.neo4j.factory.EurakaSessionFactory;
 import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
-import org.neo4j.ogm.session.SessionFactoryProvider;
 
 import java.util.Map;
 
+/**
+ * The Neo4j session with discovey session support.
+ */
 public class Neo4jDiscoverySession {
 
     private final Session session;
 
-    public Neo4jDiscoverySession(final SessionFactoryProvider sessionFactory) {
+    /**
+     * Create a new instance of {@link Neo4jDiscoverySession}
+     *
+     * @param sessionFactory
+     *         the session
+     */
+    public Neo4jDiscoverySession(final EurakaSessionFactory sessionFactory) {
         this.session = sessionFactory.openSession();
     }
 
+    /**
+     * Execute a query where the result is a single {@link Result} object.
+     *
+     * @param cypher
+     *         the Cypher query
+     * @param parameters
+     *         the query's parameters
+     *
+     * @return a {@link Result} instance
+     */
     public Result query(String cypher, Map<String, ?> parameters) {
         return session.query(cypher, parameters);
     }
 
+    /**
+     * Execute a query that has a collection with the requested type as a response.
+     *
+     * @param type
+     *         the class of the response object
+     * @param cypher
+     *         the Cypher query
+     * @param parameters
+     *         the query's parameters
+     * @param <T>
+     *         the type of the response
+     *
+     * @return a collection with the result objects
+     */
     public <T> Iterable<T> query(Class<T> type, String cypher, Map<String, ?> parameters) {
         return session.query(type, cypher, parameters);
     }

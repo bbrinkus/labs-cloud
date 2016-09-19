@@ -20,15 +20,29 @@ package com.brinkus.labs.cloud.neo4j.type;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Top level instance for the Neo4j entities.
+ */
 public class NeoEntityBase {
 
     @JsonProperty("id")
     private Long id;
 
+    /**
+     * Get the entity's unique identifier.
+     *
+     * @return the unique identifier
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Set the entity's unique identifier.
+     *
+     * @param id
+     *         the unique identifier
+     */
     public void setId(Long id) {
         this.id = id;
     }
