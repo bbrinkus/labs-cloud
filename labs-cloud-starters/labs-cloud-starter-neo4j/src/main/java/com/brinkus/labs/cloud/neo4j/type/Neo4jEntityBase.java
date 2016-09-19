@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Top level instance for the Neo4j entities.
  */
-public class NeoEntityBase {
+public class Neo4jEntityBase {
 
     @JsonProperty("id")
     private Long id;
@@ -56,7 +56,7 @@ public class NeoEntityBase {
             return false;
         }
 
-        NeoEntityBase entity = (NeoEntityBase) o;
+        Neo4jEntityBase entity = (Neo4jEntityBase) o;
 
         if (!id.equals(entity.id)) {
             return false;
