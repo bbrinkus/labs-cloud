@@ -58,6 +58,7 @@
     </developers>
 
     <modules>
+        <module>labs-cloud-starter-neo4j</module>
         <module>labs-cloud-starter-service</module>
         <module>labs-cloud-starter-test</module>
     </modules>

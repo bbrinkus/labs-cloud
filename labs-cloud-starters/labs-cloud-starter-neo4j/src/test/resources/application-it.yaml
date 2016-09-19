@@ -1,0 +1,24 @@
+# Discovery Server Access configuration
+eureka:
+  datacenter: cloud
+  client:
+    region: eu-central-1
+    eurekaServerDNSName: test.fragster.se
+    eurekaServerPort: 8761
+    eurekaServerURLContext: eureka
+    register-with-eureka: true
+    fetch-registry: true
+    use-dns-for-fetching-service-urls: true
+    availability-zones:
+      eu-central-1: eu-central-1b
+    serviceUrl:
+      eu-central-1b: http://ec2-52-58-255-141.eu-central-1.compute.amazonaws.com/eureka/
+    healthcheck:
+      enabled: true
+
+labs:
+  neo4j:
+    enabled: true
+    driver: http
+    serviceId: neo4j
+    packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2
