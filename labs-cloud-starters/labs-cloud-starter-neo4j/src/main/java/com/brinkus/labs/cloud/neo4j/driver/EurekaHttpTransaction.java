@@ -28,23 +28,23 @@ import org.neo4j.ogm.transaction.TransactionManager;
 
 class EurekaHttpTransaction extends AbstractTransaction {
 
-    private final EurekaHttpDriver driver;
+    private final EurekaHttpClient client;
 
     private final String url;
 
     public EurekaHttpTransaction(TransactionManager transactionManager, EurekaHttpDriver driver, String url) {
+    public EurekaHttpTransaction(TransactionManager transactionManager, EurekaHttpClient client, String url) {
         super(transactionManager);
-        this.driver = driver;
+        this.client = client;
         this.url = url;
     }
 
     @Override
     public void rollback() {
-
         try {
             if (transactionManager.canRollback()) {
                 HttpDelete request = new HttpDelete(url);
-                driver.executeHttpRequest(request);
+                client.executeHttpRequest(request);
             }
         } catch (Exception e) {
             throw new TransactionException(e.getLocalizedMessage());
@@ -55,12 +55,11 @@ class EurekaHttpTransaction extends AbstractTransaction {
 
     @Override
     public void commit() {
-
         try {
             if (transactionManager.canCommit()) {
                 HttpPost request = new HttpPost(url + "/commit");
                 request.setHeader(new BasicHeader(HTTP.CONTENT_TYPE, "application/json;charset=UTF-8"));
-                driver.executeHttpRequest(request);
+                client.executeHttpRequest(request);
             }
         } catch (Exception e) {
             throw new TransactionException(e.getLocalizedMessage());
@@ -69,7 +68,4 @@ class EurekaHttpTransaction extends AbstractTransaction {
         }
     }
 
-    public String url() {
-        return url;
-    }
 }

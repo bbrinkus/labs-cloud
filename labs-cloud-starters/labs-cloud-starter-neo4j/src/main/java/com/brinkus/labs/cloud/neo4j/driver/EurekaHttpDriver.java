@@ -53,6 +53,7 @@ import javax.net.ssl.SSLContext;
 import java.net.URI;
 
 public final class EurekaHttpDriver extends AbstractConfigurableDriver {
+public final class EurekaHttpDriver extends AbstractConfigurableDriver implements EurekaHttpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EurekaHttpDriver.class);
 
