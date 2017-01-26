@@ -8,6 +8,8 @@
     * Add new starter for Neo4j with discovery service support (HTTP driver only)
 * 1.2.1
     * Fix invalid Neo4j DAO name 
+* 1.2.2
+    * Add Eureka Client configuration condition  
     
 ## Projects
 
