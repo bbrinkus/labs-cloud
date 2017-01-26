@@ -32,6 +32,7 @@ import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestOperations;
@@ -42,6 +43,7 @@ import java.net.UnknownHostException;
 
 @Configuration
 @EnableEurekaClient
+@Conditional(EurekaClientConfigCondition.class)
 public class EurekaClientConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EurekaClientConfig.class);
