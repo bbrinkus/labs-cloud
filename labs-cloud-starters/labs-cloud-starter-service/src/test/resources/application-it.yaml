@@ -11,6 +11,8 @@ labs:
         expirations:
           afterAccess:
             duration: 5
+  eureka:
+    enabled: false
   swagger:
     enabled: true
     title: Labs Cloud Config

@@ -1,0 +1,3 @@
+labs:
+  eureka:
+    enabled: true

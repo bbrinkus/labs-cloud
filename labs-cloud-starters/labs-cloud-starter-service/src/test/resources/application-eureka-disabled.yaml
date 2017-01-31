@@ -1,0 +1,4 @@
+# if the condition is not working as intended it will throw an exception during the loading phase
+labs:
+  eureka:
+    enabled: false
