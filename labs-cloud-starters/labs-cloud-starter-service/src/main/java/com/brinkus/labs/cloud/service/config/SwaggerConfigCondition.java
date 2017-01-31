@@ -33,9 +33,11 @@ public class SwaggerConfigCondition implements Condition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CacheConfigCondition.class);
 
+    private static final String CONDITION_ENABLED = "labs.swagger.enabled";
+
     @Override
     public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
-        String property = context.getEnvironment().getProperty("labs.swagger.enabled");
+        String property = context.getEnvironment().getProperty(CONDITION_ENABLED);
         boolean isEnabled = Boolean.parseBoolean(property);
         LOGGER.info("Swagger configuration loading is enabled: {}", isEnabled);
         return isEnabled;

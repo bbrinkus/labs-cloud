@@ -33,11 +33,13 @@ public class EurekaClientConfigCondition implements Condition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EurekaClientConfigCondition.class);
 
+    private static final String CONDITION_ENABLED = "labs.eureka.enabled";
+
     @Override
     public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
-        String property = context.getEnvironment().getProperty("labs.eureka.enabled");
+        String property = context.getEnvironment().getProperty(CONDITION_ENABLED);
         boolean isEnabled = Boolean.parseBoolean(property);
-        LOGGER.info("Eureka client configuration is enabled: {}", isEnabled);
+        LOGGER.info("Eureka discovery client configuration is enabled: {}", isEnabled);
         return isEnabled;
     }
 }

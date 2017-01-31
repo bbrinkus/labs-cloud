@@ -33,9 +33,11 @@ public class CacheConfigCondition implements Condition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CacheConfigCondition.class);
 
+    private static final String CONDITION_ENABLED = "labs.cache.enabled";
+
     @Override
     public boolean matches(final ConditionContext context, final AnnotatedTypeMetadata metadata) {
-        String property = context.getEnvironment().getProperty("labs.cache.enabled");
+        String property = context.getEnvironment().getProperty(CONDITION_ENABLED);
         boolean isEnabled = Boolean.parseBoolean(property);
         LOGGER.info("Cache configuration loading is enabled: {}", isEnabled);
         return isEnabled;

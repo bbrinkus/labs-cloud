@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 /**
  * Swagger configuration bean to load external configuration.
  * <p>
- * External configuration file:
+ * Example configuration file:
  * <pre><code>
  *  labs:
  *    swagger:
