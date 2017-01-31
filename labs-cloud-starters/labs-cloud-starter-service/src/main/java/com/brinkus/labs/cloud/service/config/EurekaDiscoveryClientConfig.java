@@ -43,15 +43,15 @@ import java.net.UnknownHostException;
 
 @Configuration
 @EnableEurekaClient
-@Conditional(EurekaClientConfigCondition.class)
-public class EurekaClientConfig {
+@Conditional(EurekaDiscoveryClientConfigCondition.class)
+public class EurekaDiscoveryClientConfig {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaClientConfig.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaDiscoveryClientConfig.class);
 
     @Autowired(required = false)
     private HealthAggregator healthAggregator = new OrderedHealthAggregator();
 
-    public EurekaClientConfig() {
+    public EurekaDiscoveryClientConfig() {
         LOGGER.info("Initialize a new configuration instance {}", getClass().getName());
     }
 

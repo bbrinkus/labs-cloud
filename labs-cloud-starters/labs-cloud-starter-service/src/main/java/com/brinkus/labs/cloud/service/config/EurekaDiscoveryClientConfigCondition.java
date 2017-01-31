@@ -29,9 +29,9 @@ import org.springframework.stereotype.Component;
  * Condition to control the euraka client configuration loading.
  */
 @Component
-public class EurekaClientConfigCondition implements Condition {
+public class EurekaDiscoveryClientConfigCondition implements Condition {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaClientConfigCondition.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EurekaDiscoveryClientConfigCondition.class);
 
     private static final String CONDITION_ENABLED = "labs.eureka.enabled";
 

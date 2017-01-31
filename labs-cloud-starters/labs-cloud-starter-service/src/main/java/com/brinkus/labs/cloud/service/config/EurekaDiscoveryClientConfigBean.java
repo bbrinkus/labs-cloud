@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "labs.eureka")
-public class EurekaClientConfigBean {
+public class EurekaDiscoveryClientConfigBean {
 
     private boolean enabled;
 
