@@ -2,6 +2,9 @@
 
 ## Versions
 
+* 1.4.0
+    * Rename discovery client configuration from EurekaClient(.*) to EurekaDiscoveryClient(.*)
+    * Introduce new config bean for the discovery client
 * 1.3.0
     * Update to labs-parent 1.2.0
 * 1.2.2
