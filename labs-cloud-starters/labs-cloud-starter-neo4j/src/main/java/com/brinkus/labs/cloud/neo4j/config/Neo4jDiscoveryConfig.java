@@ -78,6 +78,8 @@ public class Neo4jDiscoveryConfig {
                 .setDriverClassName(getDriverClassName(config.getDriver()))
                 .setURI(config.getServiceId());
 
+        LOGGER.debug("Insert internal package to the packages list");
+        config.getPackages().add(0, getInternalTypePackageName());
         String[] packages = config.getPackages().toArray(new String[config.getPackages().size()]);
 
         EurakaSessionFactory sessionFactory = getSessionFactory(config.getDriver(), configuration, packages);
@@ -91,6 +93,10 @@ public class Neo4jDiscoveryConfig {
             default:
                 throw new IllegalArgumentException("Invalid driver name!");
         }
+    }
+
+    private String getInternalTypePackageName() {
+        return Neo4jEntityBase.class.getPackage().getName();
     }
 
     private EurakaSessionFactory getSessionFactory(final String driver,
