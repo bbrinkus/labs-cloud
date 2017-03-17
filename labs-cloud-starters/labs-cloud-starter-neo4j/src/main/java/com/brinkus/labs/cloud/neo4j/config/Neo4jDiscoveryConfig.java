@@ -23,6 +23,7 @@ import com.brinkus.labs.cloud.neo4j.component.Neo4jHealthIndicator;
 import com.brinkus.labs.cloud.neo4j.driver.EurekaHttpDriver;
 import com.brinkus.labs.cloud.neo4j.factory.EurakaSessionFactory;
 import com.brinkus.labs.cloud.neo4j.factory.EurekaHttpSessionFactory;
+import com.brinkus.labs.cloud.neo4j.type.Neo4jEntityBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

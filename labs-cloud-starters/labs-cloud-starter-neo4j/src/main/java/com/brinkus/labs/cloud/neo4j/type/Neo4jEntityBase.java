@@ -18,14 +18,14 @@
 
 package com.brinkus.labs.cloud.neo4j.type;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.neo4j.ogm.annotation.GraphId;
 
 /**
  * Top level instance for the Neo4j entities.
  */
 public class Neo4jEntityBase {
 
-    @JsonProperty("id")
+    @GraphId(name = "id")
     private Long id;
 
     /**
