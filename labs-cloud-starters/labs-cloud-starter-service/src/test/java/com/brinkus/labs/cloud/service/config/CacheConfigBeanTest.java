@@ -24,15 +24,22 @@ public class CacheConfigBeanTest {
         CacheConfigBean configBean = getConfigBean(properties);
 
         assertThat(configBean.getCaches(), notNullValue());
-        assertThat(configBean.getCaches().size(), is(7));
+        assertThat(configBean.getCaches().size(), is(6));
 
         verifyCacheSizeMaximum(configBean.getCaches().get(0));
         verifyCacheAccessExpirationHour(configBean.getCaches().get(1));
         verifyCacheAccessExpiration(configBean.getCaches().get(2));
         verifyCacheWriteExpirationMinutes(configBean.getCaches().get(3));
         verifyCacheWriteExpirationSeconds(configBean.getCaches().get(4));
-        verifyCacheWriteExpirationTypo(configBean.getCaches().get(5));
-        verifyCacheFull(configBean.getCaches().get(6));
+        verifyCacheFull(configBean.getCaches().get(5));
+    }
+
+    @Test
+    public void readEmptyConfiguration() throws Exception {
+        Properties properties = getProperties("empty.yaml");
+        CacheConfigBean configBean = getConfigBean(properties);
+
+        assertThat(configBean.isEnabled(), is(false));
     }
 
     private void verifyCacheSizeMaximum(final CacheConfigBean.Cache cache) {
@@ -87,18 +94,6 @@ public class CacheConfigBeanTest {
         assertThat(cache.getExpirations().getAfterWrite(), notNullValue());
         assertThat(cache.getExpirations().getAfterWrite().getDuration(), is(5L));
         assertThat(cache.getExpirations().getAfterWrite().getUnit(), is(TimeUnit.SECONDS));
-    }
-
-    private void verifyCacheWriteExpirationTypo(final CacheConfigBean.Cache cache) {
-        assertThat(cache.getName(), is("CacheWriteExpirationTypo"));
-        assertThat(cache.getMaximum(), nullValue());
-        assertThat(cache.getExpirations(), notNullValue());
-        assertThat(cache.getExpirations().hasAfterAccess(), is(false));
-        assertThat(cache.getExpirations().getAfterAccess(), nullValue());
-        assertThat(cache.getExpirations().hasAfterWrite(), is(true));
-        assertThat(cache.getExpirations().getAfterWrite(), notNullValue());
-        assertThat(cache.getExpirations().getAfterWrite().getDuration(), is(5L));
-        assertThat(cache.getExpirations().getAfterWrite().getUnit(), is(TimeUnit.HOURS));
     }
 
     private void verifyCacheFull(final CacheConfigBean.Cache cache) {

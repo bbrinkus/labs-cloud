@@ -30,12 +30,6 @@ labs:
             duration: 5
             unit: seconds
       -
-        name: CacheWriteExpirationTypo
-        expirations:
-          afterWrite:
-            duration: 5
-            unit: second
-      -
         name: CacheFull
         maximum:
           size: 1
