@@ -3,6 +3,8 @@ package com.brinkus.labs.cloud.service.config;
 import org.junit.Test;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.bind.PropertiesConfigurationFactory;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
@@ -121,8 +123,11 @@ public class CacheConfigBeanTest {
     }
 
     private CacheConfigBean getConfigBean(final Properties properties) throws Exception {
+        MutablePropertySources propertySources = new MutablePropertySources();
+        propertySources.addFirst(new PropertiesPropertySource("cache", properties));
+
         PropertiesConfigurationFactory<CacheConfigBean> factory = new PropertiesConfigurationFactory<>(CacheConfigBean.class);
-        factory.setProperties(properties);
+        factory.setPropertySources(propertySources);
         factory.setTargetName("labs.cache");
         factory.bindPropertiesToTarget();
         return factory.getObject();
