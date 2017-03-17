@@ -21,6 +21,8 @@ package com.brinkus.labs.cloud.service.config;
 import org.junit.Test;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.bind.PropertiesConfigurationFactory;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
@@ -41,7 +43,7 @@ public class EurekaDiscoveryClientConfigBeanTest {
 
     @Test
     public void readEmptyConfiguration() throws Exception {
-        Properties properties = getProperties("swaggerConfigBean-empty.yaml");
+        Properties properties = getProperties("empty.yaml");
         EurekaDiscoveryClientConfigBean configBean = getConfigBean(properties);
 
         assertThat(configBean.isEnabled(), is(false));
@@ -54,8 +56,11 @@ public class EurekaDiscoveryClientConfigBeanTest {
     }
 
     private EurekaDiscoveryClientConfigBean getConfigBean(final Properties properties) throws Exception {
+        MutablePropertySources propertySources = new MutablePropertySources();
+        propertySources.addFirst(new PropertiesPropertySource("eureka", properties));
+
         PropertiesConfigurationFactory<EurekaDiscoveryClientConfigBean> factory = new PropertiesConfigurationFactory<>(EurekaDiscoveryClientConfigBean.class);
-        factory.setProperties(properties);
+        factory.setPropertySources(propertySources);
         factory.setTargetName("labs.eureka");
         factory.bindPropertiesToTarget();
         return factory.getObject();

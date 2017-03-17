@@ -18,11 +18,28 @@
 
 package com.brinkus.labs.cloud.neo4j.factory;
 
-import org.neo4j.ogm.session.SessionFactoryProvider;
+import org.neo4j.ogm.MetaData;
+import org.neo4j.ogm.session.Session;
 
 /**
  * Defines the creation and handling of the new Neo4j session with discovery service support.
  */
-public interface EurakaSessionFactory extends SessionFactoryProvider {
-    // empty
+public interface EurakaSessionFactory {
+
+    /**
+     * Retrieves the meta-data that was built up when this {@link EurakaSessionFactory} was constructed.
+     *
+     * @return The underlying {@link MetaData}
+     */
+    MetaData metaData();
+
+    /**
+     * Opens a new Neo4j mapping {@link Session} using the Driver specified in the OGM configuration
+     * The driver should be configured to connect to the database using the appropriate
+     * DriverConfig
+     *
+     * @return A new {@link Session}
+     */
+    Session openSession();
+
 }

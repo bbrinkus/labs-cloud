@@ -3,6 +3,8 @@ package com.brinkus.labs.cloud.service.config;
 import org.junit.Test;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.boot.bind.PropertiesConfigurationFactory;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
@@ -67,7 +69,7 @@ public class SwaggerConfigBeanTest {
 
     @Test
     public void readEmptyConfiguration() throws Exception {
-        Properties properties = getProperties("swaggerConfigBean-empty.yaml");
+        Properties properties = getProperties("empty.yaml");
         SwaggerConfigBean configBean = getConfigBean(properties);
 
         assertThat(configBean.getTitle(), nullValue());
@@ -85,8 +87,11 @@ public class SwaggerConfigBeanTest {
     }
 
     private SwaggerConfigBean getConfigBean(final Properties properties) throws Exception {
+        MutablePropertySources propertySources = new MutablePropertySources();
+        propertySources.addFirst(new PropertiesPropertySource("swagger", properties));
+
         PropertiesConfigurationFactory<SwaggerConfigBean> factory = new PropertiesConfigurationFactory<>(SwaggerConfigBean.class);
-        factory.setProperties(properties);
+        factory.setPropertySources(propertySources);
         factory.setTargetName("labs.swagger");
         factory.bindPropertiesToTarget();
         return factory.getObject();

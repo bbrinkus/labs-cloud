@@ -87,6 +87,12 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
     }
 
     @Override
+    public Transaction newTransaction(final Transaction.Type type, final String s) {
+        String url = newTransactionUrl();
+        return new EurekaHttpTransaction(transactionManager, this, url);
+    }
+
+    @Override
     public synchronized void close() {
         try {
             LOGGER.info("Shutting down Http driver {} ", this);
@@ -102,12 +108,6 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
     public Request request() {
         String url = requestUrl();
         return new HttpRequest(httpClient(), url, driverConfig.getCredentials());
-    }
-
-    @Override
-    public Transaction newTransaction() {
-        String url = newTransactionUrl();
-        return new EurekaHttpTransaction(transactionManager, this, url);
     }
 
     @Override
