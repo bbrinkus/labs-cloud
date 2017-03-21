@@ -18,6 +18,7 @@
 
 package com.brinkus.labs.cloud.neo4j.type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.neo4j.ogm.annotation.GraphId;
 
 /**
@@ -26,6 +27,7 @@ import org.neo4j.ogm.annotation.GraphId;
 public class Neo4jEntityBase {
 
     @GraphId(name = "id")
+    @JsonIgnore
     private Long id;
 
     /**
