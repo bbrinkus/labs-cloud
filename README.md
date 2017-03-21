@@ -2,6 +2,15 @@
 
 ## Versions
 
+* 1.5.1
+    * JSON ignore Neo4jEntityBase id property
+* 1.5.0
+    * Update 3rd party dependencies
+        * Spring Boot 1.5.1.RELEASE
+        * Spring Cloud Camden.SR5
+        * Neo4j OGM 2.1.1
+    * Update classes to use the new dependencies
+    * Neo4j internal package automatically added to the package list
 * 1.4.0
     * Rename discovery client configuration from EurekaClient(.*) to EurekaDiscoveryClient(.*)
     * Introduce new config bean for the discovery client
