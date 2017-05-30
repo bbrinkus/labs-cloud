@@ -13,7 +13,7 @@
 
     <groupId>com.brinkus.labs</groupId>
     <artifactId>labs-cloud-parent</artifactId>
-    <version>1.5.1</version>
+    <version>1.6.0</version>
     <packaging>pom</packaging>
 
     <name>labs-cloud-parent</name>
@@ -68,8 +68,8 @@
         <commons-lang.version>2.6</commons-lang.version>
         <commons-validator.version>1.6</commons-validator.version>
         <springfox.version>2.6.1</springfox.version>
-        <spring-boot.version>1.5.1.RELEASE</spring-boot.version>
-        <spring-cloud.version>Camden.SR5</spring-cloud.version>
+        <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
+        <spring-cloud.version>Dalston.SR1</spring-cloud.version>
 
         <!-- Test dependencies versions -->
         <json-path.version>2.2.0</json-path.version>

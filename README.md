@@ -2,6 +2,11 @@
 
 ## Versions
 
+* 1.6.0
+    * Update 3rd party dependencies
+        * Spring Boot 1.5.2.RELEASE
+        * Spring Cloud Dalston.SR1
+        * Neo4j OGM 2.1.3
 * 1.5.1
     * JSON ignore Neo4jEntityBase id property
 * 1.5.0
