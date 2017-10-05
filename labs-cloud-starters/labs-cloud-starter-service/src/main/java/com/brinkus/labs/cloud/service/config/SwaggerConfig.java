@@ -37,6 +37,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Configuration for Swagger API documentation.
@@ -114,9 +115,14 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter {
                            termsOfServiceUrl,
                            contact,
                            licenseName,
-                           licenseUrl);
+                           licenseUrl,
+                           new ArrayList<>());
     }
 
+    /**
+     * Exclude error controllers from the swagger list.
+     * @return a new predicate for control exclusion
+     */
     private Predicate<RequestHandler> excludeErrorController() {
         return Predicates.not(RequestHandlerSelectors.basePackage("org.springframework"));
     }
