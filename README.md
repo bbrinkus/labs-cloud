@@ -2,6 +2,12 @@
 
 ## Versions
 
+* 1.6.1
+    * Update 3rd party dependencies
+        * Spring Boot 1.5.7.RELEASE
+        * Spring Cloud Dalston.SR4
+        * Docker 1.0.0
+        * Springfox 2.7.0
 * 1.6.0
     * Update 3rd party dependencies
         * Spring Boot 1.5.2.RELEASE

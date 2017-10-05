@@ -13,7 +13,7 @@
 
     <groupId>com.brinkus.labs</groupId>
     <artifactId>labs-cloud-parent</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <packaging>pom</packaging>
 
     <name>labs-cloud-parent</name>
@@ -61,18 +61,18 @@
     <properties>
         <!-- Build plugins versions -->
         <replacer-maven-plugin.version>1.5.3</replacer-maven-plugin.version>
-        <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
+        <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
 
         <!-- Dependencies versions -->
         <commons-io.version>2.5</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
         <commons-validator.version>1.6</commons-validator.version>
-        <springfox.version>2.6.1</springfox.version>
-        <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
-        <spring-cloud.version>Dalston.SR1</spring-cloud.version>
+        <springfox.version>2.7.0</springfox.version>
+        <spring-boot.version>1.5.7.RELEASE</spring-boot.version>
+        <spring-cloud.version>Dalston.SR4</spring-cloud.version>
 
         <!-- Test dependencies versions -->
-        <json-path.version>2.2.0</json-path.version>
+        <json-path.version>2.4.0</json-path.version>
         <rest-assured.version>2.9.0</rest-assured.version>
         <mockito.version>2.7.13</mockito.version>
         <hamcrest.version>1.3</hamcrest.version>
