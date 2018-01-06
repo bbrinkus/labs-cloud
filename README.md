@@ -2,6 +2,11 @@
 
 ## Versions
 
+* 2.0.0
+    * Support Neo4j Bolt
+    * Update 3rd party dependencies
+        * Spring Boot - 1.5.9.RELEASE
+        * Spring Cloud - Edgware.RELEASE
 * 1.6.1
     * Update 3rd party dependencies
         * Spring Boot 1.5.7.RELEASE
