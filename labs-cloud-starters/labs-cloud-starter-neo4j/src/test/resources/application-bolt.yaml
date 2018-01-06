@@ -1,0 +1,9 @@
+labs:
+  neo4j:
+    enabled: true
+    driver: bolt
+    bolt:
+      host: localhost
+      port: 7687
+      connectionPool: 100
+    packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2

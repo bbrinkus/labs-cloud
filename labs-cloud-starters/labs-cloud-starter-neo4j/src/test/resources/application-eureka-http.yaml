@@ -1,0 +1,13 @@
+# Discovery Server Access configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+labs:
+  neo4j:
+    enabled: true
+    driver: eureka-http
+    eureka:
+      serviceId: neo4j
+    packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2
