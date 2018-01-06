@@ -1,6 +1,6 @@
 /*
  * Labs Cloud Starter Service
- * Copyright (C) 2016-2018  Balazs Brinkus
+ * Copyright (C) 2016  Balazs Brinkus
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,41 +18,35 @@
 
 package com.brinkus.labs.cloud.neo4j.component;
 
+import com.brinkus.labs.cloud.neo4j.factory.Neo4jSessionFactory;
 import org.neo4j.ogm.model.Result;
+import org.neo4j.ogm.session.Session;
 
 import java.util.Map;
 
 /**
  * The Neo4j session with discovery support.
  */
-public interface Neo4jSession {
+public class Neo4jSessionImpl implements Neo4jSession {
+
+    private final Session session;
 
     /**
-     * Execute a query where the result is a single {@link Result} object.
+     * Create a new instance of {@link Neo4jSessionImpl}
      *
-     * @param cypher
-     *         the Cypher query
-     * @param parameters
-     *         the query's parameters
-     *
-     * @return a {@link Result} instance
+     * @param sessionFactory
+     *         the session
      */
-    Result query(String cypher, Map<String, ?> parameters);
+    public Neo4jSessionImpl(final Neo4jSessionFactory sessionFactory) {
+        this.session = sessionFactory.openSession();
+    }
 
-    /**
-     * Execute a query that has a collection with the requested type as a response.
-     *
-     * @param type
-     *         the class of the response object
-     * @param cypher
-     *         the Cypher query
-     * @param parameters
-     *         the query's parameters
-     * @param <T>
-     *         the type of the response
-     *
-     * @return a collection with the result objects
-     */
-    <T> Iterable<T> query(Class<T> type, String cypher, Map<String, ?> parameters);
+    public Result query(String cypher, Map<String, ?> parameters) {
+        return session.query(cypher, parameters);
+    }
+
+    public <T> Iterable<T> query(Class<T> type, String cypher, Map<String, ?> parameters) {
+        return session.query(type, cypher, parameters);
+    }
 
 }

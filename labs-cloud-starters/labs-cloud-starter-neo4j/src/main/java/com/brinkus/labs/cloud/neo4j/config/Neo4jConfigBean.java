@@ -30,21 +30,85 @@ import java.util.List;
  * <pre><code>
  *  labs:
  *    neo4j:
- *      enabled: true
- *      driver: http
+ *    enabled: true
+ *    driver: eureka-http
+ *    eureka:
  *      serviceId: neo4j
- *      packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2
+ *    bolt:
+ *      host: localhost
+ *      port: 7687
+ *    packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2
  * </code></pre>
  */
 @Component
 @ConfigurationProperties(prefix = "labs.neo4j")
-public class Neo4jDiscoveryConfigBean {
+public class Neo4jConfigBean {
+
+    public static class BoltConfig {
+
+        private String host;
+
+        private int port;
+
+        private int connectionPool = 100;
+
+        public String getHost() {
+            return host;
+        }
+
+        public void setHost(final String host) {
+            this.host = host;
+        }
+
+        public int getPort() {
+            return port;
+        }
+
+        public void setPort(final int port) {
+            this.port = port;
+        }
+
+        public int getConnectionPool() {
+            return connectionPool;
+        }
+
+        public void setConnectionPool(final int connectionPool) {
+            this.connectionPool = connectionPool;
+        }
+    }
+
+    public static class EurekaConfig {
+
+        private String serviceId;
+
+        /**
+         * Get the service identifier of the Neo4j instances.
+         *
+         * @return the service identifier
+         */
+        public String getServiceId() {
+            return serviceId;
+        }
+
+        /**
+         * Set the service identifier of the Neo4j instances.
+         *
+         * @param serviceId
+         *         the service identifier
+         */
+        public void setServiceId(final String serviceId) {
+            this.serviceId = serviceId;
+        }
+
+    }
 
     private boolean enabled;
 
     private String driver;
 
-    private String serviceId;
+    private BoltConfig bolt;
+
+    private EurekaConfig eureka;
 
     private List<String> packages;
 
@@ -77,7 +141,7 @@ public class Neo4jDiscoveryConfigBean {
     }
 
     /**
-     * Set the name of the connection's driver (only http supported at this moment).
+     * Set the name of the connection's driver (only eureka-http supported at this moment).
      *
      * @param driver
      *         the name of the driver
@@ -86,23 +150,20 @@ public class Neo4jDiscoveryConfigBean {
         this.driver = driver;
     }
 
-    /**
-     * Get the service identifier of the Neo4j instances.
-     *
-     * @return the service identifier
-     */
-    public String getServiceId() {
-        return serviceId;
+    public BoltConfig getBolt() {
+        return bolt;
     }
 
-    /**
-     * Set the service identifier of the Neo4j instances.
-     *
-     * @param serviceId
-     *         the service identifier
-     */
-    public void setServiceId(final String serviceId) {
-        this.serviceId = serviceId;
+    public void setBolt(final BoltConfig bolt) {
+        this.bolt = bolt;
+    }
+
+    public EurekaConfig getEureka() {
+        return eureka;
+    }
+
+    public void setEureka(final EurekaConfig eureka) {
+        this.eureka = eureka;
     }
 
     /**

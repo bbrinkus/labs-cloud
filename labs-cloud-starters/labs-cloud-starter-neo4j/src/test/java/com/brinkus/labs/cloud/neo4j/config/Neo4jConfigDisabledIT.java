@@ -18,8 +18,8 @@
 
 package com.brinkus.labs.cloud.neo4j.config;
 
-import com.brinkus.labs.cloud.neo4j.component.Neo4jDiscoverySession;
 import com.brinkus.labs.cloud.neo4j.component.Neo4jHealthIndicator;
+import com.brinkus.labs.cloud.neo4j.component.Neo4jSession;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -30,14 +30,17 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashMap;
+
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { CloudStarterTestConfig.class }, initializers = ConfigFileApplicationContextInitializer.class)
-@ActiveProfiles("empty")
-public class Neo4jDiscoveryConfigNotAvailableIT {
+@ActiveProfiles("config-disabled")
+public class Neo4jConfigDisabledIT {
 
     @Autowired
     ApplicationContext context;
@@ -47,13 +50,29 @@ public class Neo4jDiscoveryConfigNotAvailableIT {
         assertThat(context, notNullValue());
     }
 
-    @Test(expected = NoSuchBeanDefinitionException.class)
-    public void discoverySessionNotAvailable() {
-        assertThat(context.getBean(Neo4jDiscoverySession.class), nullValue());
+    @Test
+    public void sessionDisabled() {
+        Neo4jSession session = context.getBean(Neo4jSession.class);
+        assertThat(session, notNullValue());
+
+        Exception expectedException = null;
+        try {
+            session.query("", new HashMap<>());
+        } catch (Exception e) {
+            expectedException = e;
+        }
+        assertThat(expectedException, instanceOf(UnsupportedOperationException.class));
+
+        try {
+            session.query(String.class, "", new HashMap<>());
+        } catch (Exception e) {
+            expectedException = e;
+        }
+        assertThat(expectedException, instanceOf(UnsupportedOperationException.class));
     }
 
     @Test(expected = NoSuchBeanDefinitionException.class)
-    public void healthIndicatorNotAvailable() {
+    public void healthIndicatorDisabled() {
         assertThat(context.getBean(Neo4jHealthIndicator.class), nullValue());
     }
 

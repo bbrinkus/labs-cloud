@@ -18,43 +18,51 @@
 
 package com.brinkus.labs.cloud.neo4j.config;
 
-import com.brinkus.labs.cloud.neo4j.component.Neo4jDiscoverySession;
-import com.brinkus.labs.cloud.neo4j.component.Neo4jHealthIndicator;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.ConfigFileApplicationContextInitializer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { CloudStarterTestConfig.class }, initializers = ConfigFileApplicationContextInitializer.class)
-@ActiveProfiles("neo4j-enabled")
-public class Neo4jDiscoveryConfigEnabledIT {
+@ActiveProfiles("config")
+@WebAppConfiguration
+public class Neo4jConfigBeanIT {
 
     @Autowired
-    ApplicationContext context;
+    Neo4jConfigBean configBean;
 
     @Test
     public void configurationSuccess() {
-        assertThat(context, notNullValue());
+        assertThat(configBean, Matchers.notNullValue());
     }
 
     @Test
-    public void discoverySessionEnabled() {
-        Neo4jDiscoverySession discoverySession = context.getBean(Neo4jDiscoverySession.class);
-        assertThat(discoverySession, notNullValue());
-    }
+    public void testConfigurationLoaded() {
+        assertThat(configBean.isEnabled(), is(true));
+        assertThat(configBean.getDriver(), is("eureka-http"));
 
-    @Test
-    public void healthIndicatorEnabled() {
-        Neo4jHealthIndicator healthIndicator = context.getBean(Neo4jHealthIndicator.class);
-        assertThat(healthIndicator, notNullValue());
+        assertThat(configBean.getEureka(), notNullValue());
+        assertThat(configBean.getEureka().getServiceId(), is("neo4j"));
+
+        assertThat(configBean.getBolt(), notNullValue());
+        assertThat(configBean.getBolt().getHost(), is("localhost"));
+        assertThat(configBean.getBolt().getPort(), is(7687));
+        assertThat(configBean.getBolt().getConnectionPool(), is(100));
+
+        assertThat(configBean.getPackages(), notNullValue());
+        assertThat(configBean.getPackages().size(), is(2));
+        assertThat(configBean.getPackages().get(0), is("com.brinkus.labs.cloud.neo4j.type"));
+        assertThat(configBean.getPackages().get(1), is("com.brinkus.labs.cloud.neo4j.type2"));
     }
 
 }

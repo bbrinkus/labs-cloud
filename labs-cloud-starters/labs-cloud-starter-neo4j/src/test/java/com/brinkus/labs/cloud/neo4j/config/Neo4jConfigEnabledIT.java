@@ -18,44 +18,43 @@
 
 package com.brinkus.labs.cloud.neo4j.config;
 
-import org.hamcrest.Matchers;
+import com.brinkus.labs.cloud.neo4j.component.Neo4jSession;
+import com.brinkus.labs.cloud.neo4j.component.Neo4jHealthIndicator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.ConfigFileApplicationContextInitializer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { CloudStarterTestConfig.class }, initializers = ConfigFileApplicationContextInitializer.class)
-@ActiveProfiles("it")
-@WebAppConfiguration
-public class Neo4jDiscoveryConfigBeanIT {
+@ActiveProfiles("config-enabled")
+public class Neo4jConfigEnabledIT {
 
     @Autowired
-    Neo4jDiscoveryConfigBean configBean;
+    ApplicationContext context;
 
     @Test
     public void configurationSuccess() {
-        assertThat(configBean, Matchers.notNullValue());
+        assertThat(context, notNullValue());
     }
 
     @Test
-    public void testConfigurationLoaded() {
-        assertThat(configBean.isEnabled(), is(true));
-        assertThat(configBean.getDriver(), is("http"));
-        assertThat(configBean.getServiceId(), is("neo4j"));
+    public void discoverySessionEnabled() {
+        Neo4jSession session = context.getBean(Neo4jSession.class);
+        assertThat(session, notNullValue());
+    }
 
-        assertThat(configBean.getPackages(), notNullValue());
-        assertThat(configBean.getPackages().size(), is(2));
-        assertThat(configBean.getPackages().get(0), is("com.brinkus.labs.cloud.neo4j.type"));
-        assertThat(configBean.getPackages().get(1), is("com.brinkus.labs.cloud.neo4j.type2"));
+    @Test
+    public void healthIndicatorEnabled() {
+        Neo4jHealthIndicator healthIndicator = context.getBean(Neo4jHealthIndicator.class);
+        assertThat(healthIndicator, notNullValue());
     }
 
 }
