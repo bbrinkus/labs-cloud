@@ -142,7 +142,7 @@ public class Neo4jConfig {
             case "eureka-http":
                 return new EurekaHttpSessionFactory(clientFactory, configuration, packages);
             case "bolt":
-                return new BoltSessionFactory(clientFactory, configuration, packages);
+                return new BoltSessionFactory(configuration, packages);
             default:
                 throw new IllegalArgumentException("Invalid driver name!");
         }

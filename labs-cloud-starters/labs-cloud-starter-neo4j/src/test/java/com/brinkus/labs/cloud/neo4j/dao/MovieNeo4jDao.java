@@ -22,9 +22,11 @@ import com.brinkus.labs.cloud.neo4j.component.Neo4jDao;
 import com.brinkus.labs.cloud.neo4j.component.Neo4jSession;
 import com.brinkus.labs.cloud.neo4j.component.Neo4jSession;
 import com.brinkus.labs.cloud.neo4j.type.Movie;
+import org.neo4j.ogm.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +36,14 @@ public class MovieNeo4jDao extends Neo4jDao<Movie> {
     @Autowired
     public MovieNeo4jDao(Neo4jSession session) {
         super(session);
+    }
+
+    public long getMoviesCount() {
+        final String query = "MATCH (m:Movie) RETURN count(m) as moviesCount";
+
+        Result result = executeSingleValueQuery(query, Collections.emptyMap());
+        Map<String, Object> countMap = result.iterator().next();
+        return (Long) countMap.get("moviesCount");
     }
 
     public Iterable<Movie> findMovieByTitle(final String title) {

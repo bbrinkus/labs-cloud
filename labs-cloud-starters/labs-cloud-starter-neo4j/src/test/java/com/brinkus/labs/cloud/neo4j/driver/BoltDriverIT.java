@@ -50,6 +50,11 @@ public class BoltDriverIT {
     }
 
     @Test
+    public void getMoviesCount() {
+        assertThat(dao.getMoviesCount(), is(38L));
+    }
+
+    @Test
     public void findTheMatrixMovie() {
         Iterable<Movie> movies = dao.findMovieByTitle("The Matrix");
         assertThat(Iterables.size(movies), is(1));

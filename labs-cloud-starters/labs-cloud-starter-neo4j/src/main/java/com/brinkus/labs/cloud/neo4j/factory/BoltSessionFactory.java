@@ -23,11 +23,8 @@ import org.neo4j.ogm.drivers.bolt.driver.BoltDriver;
 import org.neo4j.ogm.metadata.MetaData;
 import org.neo4j.ogm.session.Neo4jSession;
 import org.neo4j.ogm.session.Session;
-import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 
 public class BoltSessionFactory implements Neo4jSessionFactory {
-
-    private final SpringClientFactory clientFactory;
 
     private final Configuration configuration;
 
@@ -36,15 +33,12 @@ public class BoltSessionFactory implements Neo4jSessionFactory {
     /**
      * Create a new instance of {@link BoltSessionFactory}.
      *
-     * @param clientFactory
-     *         the factory class that handles the loadbalancer creation
      * @param configuration
      *         the Neo4j configuration instance
      * @param packages
      *         the meta packages that are containing the Neo4j entity representations
      */
-    public BoltSessionFactory(SpringClientFactory clientFactory, Configuration configuration, String... packages) {
-        this.clientFactory = clientFactory;
+    public BoltSessionFactory(Configuration configuration, String... packages) {
         this.configuration = configuration;
         this.metaData = new MetaData(packages);
     }
