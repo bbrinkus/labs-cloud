@@ -18,7 +18,7 @@
 
 package com.brinkus.labs.cloud.neo4j.component;
 
-import com.brinkus.labs.cloud.neo4j.factory.EurakaSessionFactory;
+import com.brinkus.labs.cloud.neo4j.factory.Neo4jSessionFactory;
 import org.neo4j.ogm.model.Result;
 import org.neo4j.ogm.session.Session;
 
@@ -27,17 +27,17 @@ import java.util.Map;
 /**
  * The Neo4j session with discovey session support.
  */
-public class Neo4jDiscoverySession {
+public class Neo4jSession {
 
     private final Session session;
 
     /**
-     * Create a new instance of {@link Neo4jDiscoverySession}
+     * Create a new instance of {@link Neo4jSession}
      *
      * @param sessionFactory
      *         the session
      */
-    public Neo4jDiscoverySession(final EurakaSessionFactory sessionFactory) {
+    public Neo4jSession(final Neo4jSessionFactory sessionFactory) {
         this.session = sessionFactory.openSession();
     }
 

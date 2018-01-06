@@ -18,20 +18,20 @@
 
 package com.brinkus.labs.cloud.neo4j.component;
 
-import com.brinkus.labs.cloud.neo4j.type.Neo4jEntityBase;
+import com.brinkus.labs.cloud.neo4j.type.Neo4jEntity;
 import org.neo4j.ogm.model.Result;
 
 import java.util.Map;
 
 /**
- * Top-level data accces object to handle the queries and return an instance that extended the {@link Neo4jEntityBase}.
+ * Top-level data access object to handle the queries and return an instance that extended the {@link Neo4jEntity}.
  *
  * @param <T>
- *         an extended {@link Neo4jEntityBase} instance
+ *         an extended {@link Neo4jEntity} instance
  */
-public abstract class Neo4jDao<T extends Neo4jEntityBase> {
+public abstract class Neo4jDao<T extends Neo4jEntity> {
 
-    private final Neo4jDiscoverySession session;
+    private final Neo4jSession session;
 
     /**
      * Create a new instance of {@link Neo4jDao}
@@ -39,7 +39,7 @@ public abstract class Neo4jDao<T extends Neo4jEntityBase> {
      * @param session
      *         the Neo4j discovery session
      */
-    public Neo4jDao(Neo4jDiscoverySession session) {
+    public Neo4jDao(Neo4jSession session) {
         this.session = session;
     }
 

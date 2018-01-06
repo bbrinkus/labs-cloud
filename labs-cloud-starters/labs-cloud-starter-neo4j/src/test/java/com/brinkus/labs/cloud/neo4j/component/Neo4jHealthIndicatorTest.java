@@ -39,7 +39,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class NeoHealthIndicatorTest {
+public class Neo4jHealthIndicatorTest {
 
     private class HealthResult implements Result {
 
@@ -75,22 +75,22 @@ public class NeoHealthIndicatorTest {
 
     private Neo4jHealthIndicator neoHealthIndicator;
 
-    private Neo4jDiscoverySession session;
+    private Neo4jSession session;
 
     @Before
-    public void setUp() throws Exception {
-        session = mock(Neo4jDiscoverySession.class);
+    public void setUp() {
+        session = mock(Neo4jSession.class);
         neoHealthIndicator = new Neo4jHealthIndicator(session);
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         neoHealthIndicator = null;
         session = null;
     }
 
     @Test
-    public void healthUp() throws Exception {
+    public void healthUp() {
         HealthResult result = new HealthResult(new HashMap<>());
 
         when(session.query(anyString(), anyMap())).thenReturn(result);
@@ -101,7 +101,7 @@ public class NeoHealthIndicatorTest {
     }
 
     @Test
-    public void healthDown() throws Exception {
+    public void healthDown() {
         HealthResult result = new HealthResult();
 
         when(session.query(anyString(), anyMap())).thenReturn(result);
@@ -112,7 +112,7 @@ public class NeoHealthIndicatorTest {
     }
 
     @Test
-    public void healthException() throws Exception {
+    public void healthException() {
         when(session.query(anyString(), anyMap())).thenThrow(Exception.class);
 
         Health health = neoHealthIndicator.health();

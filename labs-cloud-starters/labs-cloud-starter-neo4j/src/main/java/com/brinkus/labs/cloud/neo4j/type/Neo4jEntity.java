@@ -19,14 +19,16 @@
 package com.brinkus.labs.cloud.neo4j.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.Property;
 
 /**
  * Top level instance for the Neo4j entities.
  */
-public class Neo4jEntityBase {
+public class Neo4jEntity {
 
-    @GraphId(name = "id")
+    @Id
+    @Property(name = "id")
     @JsonIgnore
     private Long id;
 
@@ -35,7 +37,7 @@ public class Neo4jEntityBase {
      *
      * @return the unique identifier
      */
-    public Long getId() {
+    public final Long getId() {
         return id;
     }
 
@@ -45,7 +47,7 @@ public class Neo4jEntityBase {
      * @param id
      *         the unique identifier
      */
-    public void setId(Long id) {
+    public final void setId(Long id) {
         this.id = id;
     }
 
@@ -58,7 +60,7 @@ public class Neo4jEntityBase {
             return false;
         }
 
-        Neo4jEntityBase entity = (Neo4jEntityBase) o;
+        Neo4jEntity entity = (Neo4jEntity) o;
 
         if (!id.equals(entity.id)) {
             return false;

@@ -34,22 +34,22 @@ public class Neo4jHealthIndicator implements HealthIndicator {
 
     private static final String PING_CYPHER = "MATCH (n) RETURN count(*)";
 
-    private final Neo4jDiscoverySession discoverySession;
+    private final Neo4jSession session;
 
     /**
      * Create a new instance of {@link Neo4jHealthIndicator}
      *
-     * @param discoverySession
-     *         the Neo4j discovery session
+     * @param session
+     *         the Neo4j session
      */
-    public Neo4jHealthIndicator(Neo4jDiscoverySession discoverySession) {
-        this.discoverySession = discoverySession;
+    public Neo4jHealthIndicator(Neo4jSession session) {
+        this.session = session;
     }
 
     @Override
     public Health health() {
         try {
-            Result result = discoverySession.query(PING_CYPHER, Collections.emptyMap());
+            Result result = session.query(PING_CYPHER, Collections.emptyMap());
             if (Iterables.size(result.queryResults()) != 0) {
                 return Health.up().withDetail(DESCRIPTION, "Neo4j is up and running").build();
             } else {
