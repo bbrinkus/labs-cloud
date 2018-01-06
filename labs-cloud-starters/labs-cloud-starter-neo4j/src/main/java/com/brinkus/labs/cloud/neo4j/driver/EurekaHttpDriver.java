@@ -87,7 +87,10 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
     }
 
     @Override
-    public Transaction newTransaction(final Transaction.Type type, final String s) {
+    public Transaction newTransaction(final Transaction.Type type, final Iterable<String> bookmarks) {
+        if (bookmarks != null && bookmarks.iterator().hasNext()) {
+            LOGGER.warn("Passing bookmarks {} to EurekaHttpDriver. This is not currently supported.", bookmarks);
+        }
         String url = newTransactionUrl();
         return new EurekaHttpTransaction(transactionManager, this, url);
     }
@@ -107,7 +110,7 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
     @Override
     public Request request() {
         String url = requestUrl();
-        return new HttpRequest(httpClient(), url, driverConfig.getCredentials());
+        return new HttpRequest(httpClient(), url, configuration.getCredentials());
     }
 
     @Override
@@ -163,7 +166,7 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
 
     private CloseableHttpResponse executeHttpRequestWithResponse(final HttpRequestBase request) {
         try {
-            try (CloseableHttpResponse response = HttpRequest.execute(httpClient(), request, driverConfig.getCredentials())) {
+            try (CloseableHttpResponse response = HttpRequest.execute(httpClient(), request, configuration.getCredentials())) {
                 HttpEntity responseEntity = response.getEntity();
                 if (responseEntity != null) {
                     String responseText = EntityUtils.toString(responseEntity);
@@ -197,7 +200,7 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
             try {
                 SSLContext sslContext = SSLContext.getDefault();
 
-                if (driverConfig.getTrustStrategy() != null && driverConfig.getTrustStrategy().equals("ACCEPT_UNSIGNED")) {
+                if (configuration.getTrustStrategy() != null && configuration.getTrustStrategy().equals("ACCEPT_UNSIGNED")) {
                     sslContext = new SSLContextBuilder().loadTrustMaterial(null, (arg0, arg1) -> true).build();
                     LOGGER.warn("Certificate validation has been disabled");
                 }
@@ -212,8 +215,8 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
 
                 // allows multi-threaded use
                 PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
-                connectionManager.setMaxTotal(driverConfig.getConnectionPoolSize());
-                connectionManager.setDefaultMaxPerRoute(driverConfig.getConnectionPoolSize());
+                connectionManager.setMaxTotal(configuration.getConnectionPoolSize());
+                connectionManager.setDefaultMaxPerRoute(configuration.getConnectionPoolSize());
 
                 httpClient = HttpClientBuilder.create()
                         .setSSLContext(sslContext)
@@ -229,7 +232,9 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
 
     private String getDiscoveryUri() {
         try {
-            String serviceId = driverConfig.getURI();
+            String serviceId = configuration.getURI();
+            // Fix the workaround that is applied in the Neo4jDiscoveryConfig
+            serviceId = serviceId.replace("http://", "");
 
             Server server = getServer(serviceId);
             if (server == null) {
@@ -237,7 +242,7 @@ public final class EurekaHttpDriver extends AbstractConfigurableDriver implement
             }
 
             RibbonLoadBalancerContext context = getLoadBalancerContext(serviceId);
-            URI uri = context.reconstructURIWithServer(server, new URI(driverConfig.getURI()));
+            URI uri = context.reconstructURIWithServer(server, new URI(configuration.getURI()));
             return uri.toString();
         } catch (Exception e) {
             throw new RuntimeException(e);
