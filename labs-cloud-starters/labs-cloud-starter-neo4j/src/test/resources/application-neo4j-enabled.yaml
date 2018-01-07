@@ -1,6 +1,0 @@
-labs:
-  neo4j:
-    enabled: true
-    driver: http
-    serviceId: neo4j
-    packages: com.brinkus.labs.cloud.neo4j.type, com.brinkus.labs.cloud.neo4j.type2

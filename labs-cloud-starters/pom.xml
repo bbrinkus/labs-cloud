@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.brinkus.labs</groupId>
         <artifactId>labs-cloud-parent</artifactId>
-        <version>1.6.1</version>
+        <version>2.0.0</version>
         <relativePath>../labs-cloud-parent</relativePath>
     </parent>
 

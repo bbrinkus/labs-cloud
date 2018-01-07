@@ -19,9 +19,8 @@
 package com.brinkus.labs.cloud.neo4j.factory;
 
 import com.brinkus.labs.cloud.neo4j.driver.EurekaHttpDriver;
-import org.neo4j.ogm.MetaData;
 import org.neo4j.ogm.config.Configuration;
-import org.neo4j.ogm.service.Components;
+import org.neo4j.ogm.metadata.MetaData;
 import org.neo4j.ogm.session.Neo4jSession;
 import org.neo4j.ogm.session.Session;
 import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
@@ -29,7 +28,7 @@ import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 /**
  * Create and handles the new Neo4j session with discovery service support.
  */
-public class EurekaHttpSessionFactory implements EurakaSessionFactory {
+public class EurekaHttpSessionFactory implements Neo4jSessionFactory {
 
     private final SpringClientFactory clientFactory;
 
@@ -51,7 +50,6 @@ public class EurekaHttpSessionFactory implements EurakaSessionFactory {
         this.clientFactory = clientFactory;
         this.configuration = configuration;
         this.metaData = new MetaData(packages);
-        Components.configure(this.configuration);
     }
 
     @Override
@@ -62,7 +60,7 @@ public class EurekaHttpSessionFactory implements EurakaSessionFactory {
     @Override
     public Session openSession() {
         EurekaHttpDriver driver = new EurekaHttpDriver(clientFactory);
-        driver.configure(configuration.driverConfiguration());
+        driver.configure(configuration);
         return new Neo4jSession(metaData, driver);
     }
 

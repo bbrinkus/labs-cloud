@@ -26,7 +26,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@ComponentScan(basePackages = { "com.brinkus.labs" })
+@ComponentScan(basePackages = { "com.brinkus.labs.cloud.neo4j" })
 @Configuration
 @EnableAutoConfiguration
 public class CloudStarterTestConfig {
